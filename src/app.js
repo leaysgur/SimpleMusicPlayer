@@ -6,32 +6,30 @@ import {
   Text,
   TabBarIOS,
 } from 'react-native';
+import {
+  observable,
+} from 'mobx';
+import {
+  observer,
+} from 'mobx-react/native';
 
 import {
   TABS,
 } from './const';
 
+// $FlowFixMe
+@observer
 class App extends React.Component {
-  state: Object;
+  @observable selectedTab: string = TABS.SONGS;
   _switchTab: () => boolean;
 
   constructor() {
     super();
-
-    this.state = {
-      selectedTab: TABS.SONGS
-    };
     this._switchTab = this._switchTab.bind(this);
   }
 
-  _switchTab(tabName: string) {
-    this.setState({
-      selectedTab: tabName,
-    });
-  }
-
   render() {
-    const { selectedTab, } = this.state;
+    const { selectedTab, } = this;
 
     return (
       <TabBarIOS
@@ -69,6 +67,10 @@ class App extends React.Component {
         </TabBarIOS.Item>
       </TabBarIOS>
     );
+  }
+
+  _switchTab(tabName: string) {
+    this.selectedTab = tabName;
   }
 
   _renderContent(pageText: string) {
