@@ -16,11 +16,12 @@ import {
 import {
   TABS,
 } from './const';
+import SongsView from './view/songs';
 
 // $FlowFixMe
 @observer
 class App extends React.Component {
-  @observable selectedTab: string = TABS.SONGS;
+  @observable selectedTab: string = TABS.ARTIST;
   _switchTab: () => boolean;
 
   constructor() {
@@ -42,7 +43,7 @@ class App extends React.Component {
           selected={selectedTab === TABS.SONGS}
           onPress={ () => { this._switchTab(TABS.SONGS); } }
         >
-          {this._renderContent(TABS.SONGS)}
+          <SongsView pageText={TABS.SONGS} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アーティスト"
