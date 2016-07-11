@@ -28,7 +28,7 @@ class AlbumsView extends React.Component {
     if (albums.length) {
       List = albums.map((album, idx) => {
         return (
-          <Text key={idx}>{album}</Text>
+          <Text key={idx}>{album.artist}: {album.title}</Text>
         );
       })
     }

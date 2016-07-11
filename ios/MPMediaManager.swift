@@ -11,19 +11,31 @@ import MediaPlayer
 
 @objc(MPMediaManager)
 class MPMediaManager: NSObject {
-  
+
   @objc func getAlbums(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     let albumsQuery: MPMediaQuery = MPMediaQuery.albumsQuery()
-    let albumItems: [MPMediaItemCollection] = albumsQuery.collections!
     
-    var albumTitles: [String] = [];
-    for album in albumItems {
-      if let representativeTitle = album.representativeItem!.albumTitle {
-        albumTitles.append(representativeTitle);
+    var albums = [[String: String]]()
+    if let albumCollection: [MPMediaItemCollection] = albumsQuery.collections {
+      for album in albumCollection {
+        guard let title = album.representativeItem!.albumTitle else {
+          continue
+        }
+
+        guard let artist = album.representativeItem!.albumArtist else {
+          continue
+        }
+        
+        let albumView = [
+          "title":  title,
+          "artist": artist ?? "V.A."
+        ]
+
+        albums.append(albumView)
       }
     }
-  
-    resolve([albumTitles])
+    
+    resolve(albums)
   }
-  
+
 }
