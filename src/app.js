@@ -16,7 +16,8 @@ import {
 import {
   TABS,
 } from './const';
-import SongsView from './view/songs';
+import SongsView  from './view/songs';
+import AlbumsView from './view/albums';
 
 // $FlowFixMe
 @observer
@@ -57,7 +58,7 @@ class App extends React.Component {
           selected={selectedTab === TABS.ALBUM}
           onPress={ () => { this._switchTab(TABS.ALBUM); } }
         >
-          {this._renderContent(TABS.ALBUM)}
+          <AlbumsView />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="再生中"
