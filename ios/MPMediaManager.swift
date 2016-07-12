@@ -9,8 +9,7 @@ import Foundation
 import MediaPlayer
 
 
-@objc(MPMediaManager)
-class MPMediaManager: NSObject {
+@objc(MPMediaManager) class MPMediaManager: NSObject {
 
   @objc func getAlbums(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     let albumsQuery: MPMediaQuery = MPMediaQuery.albumsQuery()
@@ -21,17 +20,14 @@ class MPMediaManager: NSObject {
         guard let title = album.representativeItem!.albumTitle else {
           continue
         }
-
         guard let artist = album.representativeItem!.albumArtist else {
           continue
         }
         
-        let albumView = [
-          "title":  title,
+        albums.append([
+          "title":  title  ?? "No title",
           "artist": artist ?? "V.A."
-        ]
-
-        albums.append(albumView)
+        ])
       }
     }
     

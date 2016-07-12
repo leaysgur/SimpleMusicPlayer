@@ -14,7 +14,7 @@ class AlbumsView extends React.Component {
 
   componentDidMount() {
     const that = this;
-    NativeModules.MPMediaManager.getAlbumsAsync()
+    NativeModules.MPMediaManager.getAlbums()
       .then((albums) => {
         that.setState({ albums: albums });
       });
