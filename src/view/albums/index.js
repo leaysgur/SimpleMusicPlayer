@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {
   Loading,
-} from './common';
+} from '../common';
 
 class AlbumsView extends React.Component {
   state = {
