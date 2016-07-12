@@ -5,4 +5,7 @@ import {
 
 import SimpleMusicPlayer from './src/app';
 
-AppRegistry.registerComponent('SimpleMusicPlayer', () => SimpleMusicPlayer);
+AppRegistry.registerComponent(
+  'SimpleMusicPlayer',
+  () => SimpleMusicPlayer
+);

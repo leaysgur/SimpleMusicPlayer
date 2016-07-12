@@ -2,10 +2,12 @@
 import React from 'react';
 import {
   NativeModules,
-  StyleSheet,
   View,
   Text,
 } from 'react-native';
+import {
+  Loading,
+} from './common';
 
 class AlbumsView extends React.Component {
   state = {
@@ -23,31 +25,20 @@ class AlbumsView extends React.Component {
   render() {
     const { albums, } = this.state;
 
-    let List = (<Text>Now loading...</Text>);
-
-    if (albums.length) {
-      List = albums.map((album, idx) => {
-        return (
-          <Text key={idx}>{album.artist}: {album.title}</Text>
-        );
-      })
+    if (albums.length === 0) {
+      return <Loading />
     }
 
     return (
-      <View style={styles.container}>
-        {List}
+      <View>
+        {albums.map((album, idx) => {
+          return (
+            <Text key={idx}>{album.artist}: {album.title}</Text>
+          );
+        })}
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
 
 export default AlbumsView;
