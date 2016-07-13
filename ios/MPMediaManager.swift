@@ -17,38 +17,11 @@ func _image2String(image: UIImage) -> String {
 
 
 @objc(MPMediaManager) class MPMediaManager: NSObject {
-
-  @objc func getSongs(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-    let songsQuery: MPMediaQuery = MPMediaQuery.songsQuery()
-
-    var songs = [[String: String]]()
-    if let songCollection: [MPMediaItemCollection] = songsQuery.collections {
-      for song in songCollection {
-        guard let title = song.representativeItem!.title else {
-          continue
-        }
-        guard let artist = song.representativeItem!.artist else {
-          continue
-        }
-        guard let albumTitle = song.representativeItem!.albumTitle else {
-          continue
-        }
-        
-        songs.append([
-          "title":      title      ?? "No title",
-          "artist":     artist     ?? "V.A.",
-          "albumTitle": albumTitle ?? ""
-        ])
-      }
-    }
-    
-    resolve(songs)
-  }
   
   @objc func getAlbums(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     let albumsQuery: MPMediaQuery = MPMediaQuery.albumsQuery()
     
-    var albums = [[String: String]]()
+    var albums = [[String: AnyObject]]()
     if let albumCollection: [MPMediaItemCollection] = albumsQuery.collections {
       for album in albumCollection {
         guard let title = album.representativeItem!.albumTitle else {
@@ -60,11 +33,24 @@ func _image2String(image: UIImage) -> String {
         guard let artwork = album.representativeItem!.artwork else {
           continue
         }
+
+        let artworkStr = _image2String(artwork.imageWithSize(artwork.bounds.size)!);
+        
+
+        var songs = [[String: String]]()
+        for song in (album.items) {
+          songs.append([
+            "title": song.title!,
+            "artist": song.artist!,
+            "artwork": artworkStr
+          ])
+        }
         
         albums.append([
           "title":  title  ?? "No title",
           "artist": artist ?? "V.A.",
-          "artwork": _image2String(artwork.imageWithSize(artwork.bounds.size)!)
+          "artwork": artworkStr,
+          "songs": songs
         ])
       }
     }

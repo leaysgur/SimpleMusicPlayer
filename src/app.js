@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import {
+  NativeModules,
   StyleSheet,
   View,
   Text,
@@ -12,16 +13,19 @@ import {
 import {
   observer,
 } from 'mobx-react/native';
-
 import {
   TABS,
 } from './const';
+import {
+  Loading,
+} from './view/common';
 import SongsView  from './view/songs';
 import AlbumsView from './view/albums';
 
 // $FlowFixMe
 @observer
 class App extends React.Component {
+  albums = [];
   @observable selectedTab: string = TABS.ARTIST;
   _switchTab: () => boolean;
 
@@ -30,8 +34,21 @@ class App extends React.Component {
     this._switchTab = this._switchTab.bind(this);
   }
 
+  componentDidMount() {
+    const that = this;
+    NativeModules.MPMediaManager.getAlbums()
+      .then((albums) => {
+        that.albums = albums;
+        that.forceUpdate();
+      });
+  }
+
   render() {
-    const { selectedTab, } = this;
+    const { selectedTab, albums } = this;
+
+    if (albums.length === 0) {
+      return <Loading />;
+    }
 
     return (
       <TabBarIOS
@@ -58,7 +75,9 @@ class App extends React.Component {
           selected={selectedTab === TABS.ALBUM}
           onPress={ () => { this._switchTab(TABS.ALBUM); } }
         >
-          <AlbumsView />
+          <AlbumsView
+            albums={albums}
+          />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="再生中"

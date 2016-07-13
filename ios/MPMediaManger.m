@@ -11,7 +11,6 @@
 
 @interface RCT_EXTERN_MODULE(MPMediaManager, NSObject)
 
-RCT_EXTERN_METHOD(getSongs:  (RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(getAlbums: (RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 
 @end
