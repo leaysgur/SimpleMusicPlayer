@@ -3,6 +3,7 @@ import React from 'react';
 import {
   NativeModules,
   View,
+  Image,
   Text,
 } from 'react-native';
 import {
@@ -33,7 +34,10 @@ class AlbumsView extends React.Component {
       <View>
         {albums.map((album, idx) => {
           return (
-            <Text key={idx}>{album.artist}: {album.title}</Text>
+            <View key={idx}>
+              <Image style={{width:64, height:64}} source={{ uri: `data:image/png;base64, ${album.artwork }` }} />
+              <Text>{album.artist}: {album.title}</Text>
+            </View>
           );
         })}
       </View>

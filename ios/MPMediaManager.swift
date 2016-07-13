@@ -8,6 +8,13 @@
 import Foundation
 import MediaPlayer
 
+func image2String(image:UIImage) -> String {
+  let data:NSData = UIImagePNGRepresentation(image)!
+  let encodeString:String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
+
+  return encodeString
+}
+
 
 @objc(MPMediaManager) class MPMediaManager: NSObject {
 
@@ -50,10 +57,14 @@ import MediaPlayer
         guard let artist = album.representativeItem!.albumArtist else {
           continue
         }
+        guard let artwork = album.representativeItem!.artwork else {
+          continue
+        }
         
         albums.append([
           "title":  title  ?? "No title",
-          "artist": artist ?? "V.A."
+          "artist": artist ?? "V.A.",
+          "artwork": image2String(artwork.imageWithSize(artwork.bounds.size)!)
         ])
       }
     }
