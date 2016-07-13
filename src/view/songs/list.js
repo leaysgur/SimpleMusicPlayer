@@ -2,19 +2,23 @@
 import React from 'react';
 import {
   ListView,
+  View,
   Text,
   TouchableOpacity,
 } from 'react-native';
+import {
+  Separator,
+} from '../common';
 
-type Songs = {
-  title: String;
-  artist: String;
-  albumTitle: String;
+type Song = {
+  title: string;
+  artist: string;
+  albumTitle: string;
 };
 
 class SongList extends React.Component {
   props: {
-    songs: [Songs]
+    songs: [Song]
   };
 
   render() {
@@ -25,7 +29,8 @@ class SongList extends React.Component {
     return (
       <ListView
         dataSource={dataSource}
-        renderRow={ (rowData) => {
+        removeClippedSubviews={false}
+        renderRow={ (rowData: Song) => {
           return (
             <TouchableOpacity>
               <Text>
@@ -33,6 +38,9 @@ class SongList extends React.Component {
               </Text>
             </TouchableOpacity>
           );
+        } }
+        renderSeparator={ (sectionID: number, rowID: number) => {
+          return <Separator key={`${sectionID}-${rowID}`} />
         } }
       />
     )
