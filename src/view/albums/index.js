@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   NativeModules,
+  NavigatorIOS,
   View,
   Image,
   Text,
@@ -9,6 +10,7 @@ import {
 import {
   Loading,
 } from '../common';
+import AlbumList from './list';
 
 class AlbumsView extends React.Component {
   state = {
@@ -30,17 +32,19 @@ class AlbumsView extends React.Component {
       return <Loading />
     }
 
+    const route = {
+      component: AlbumList,
+      title: 'アルバム',
+      passProps: {
+        albums: albums,
+      }
+    };
+
     return (
-      <View>
-        {albums.map((album, idx) => {
-          return (
-            <View key={idx}>
-              <Image style={{width:64, height:64}} source={{ uri: `data:image/png;base64, ${album.artwork }` }} />
-              <Text>{album.artist}: {album.title}</Text>
-            </View>
-          );
-        })}
-      </View>
+      <NavigatorIOS
+        initialRoute={route}
+        style={{flex: 1}}
+      />
     );
   }
 }

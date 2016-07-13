@@ -20,14 +20,13 @@ class SongsView extends React.Component {
     const that = this;
     NativeModules.MPMediaManager.getSongs()
       .then((songs) => {
-        that.setState({
-          songs: songs,
-        });
+        that.setState({ songs: songs });
       });
   }
 
   render() {
     const { songs, } = this.state;
+
     if (songs.length === 0) {
       return <Loading />;
     }

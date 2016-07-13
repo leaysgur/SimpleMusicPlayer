@@ -8,9 +8,9 @@
 import Foundation
 import MediaPlayer
 
-func image2String(image:UIImage) -> String {
-  let data:NSData = UIImagePNGRepresentation(image)!
-  let encodeString:String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
+func _image2String(image: UIImage) -> String {
+  let data: NSData = UIImagePNGRepresentation(image)!
+  let encodeString: String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
 
   return encodeString
 }
@@ -64,7 +64,7 @@ func image2String(image:UIImage) -> String {
         albums.append([
           "title":  title  ?? "No title",
           "artist": artist ?? "V.A.",
-          "artwork": image2String(artwork.imageWithSize(artwork.bounds.size)!)
+          "artwork": _image2String(artwork.imageWithSize(artwork.bounds.size)!)
         ])
       }
     }
