@@ -36,9 +36,17 @@ const styles = StyleSheet.create({
 });
 
 class AlbumList extends React.Component {
+  _pressRow: () => bool;
+
   props: {
     albums: [Album]
   };
+
+  constructor() {
+    super();
+
+    this._pressRow = this._pressRow.bind(this);
+  }
 
   render() {
     const dataSource = (new ListView.DataSource({
@@ -48,10 +56,11 @@ class AlbumList extends React.Component {
     return (
       <ListView
         dataSource={dataSource}
-        removeClippedSubviews={false}
-        renderRow={ (rowData: Album) => {
+        renderRow={ (rowData: Album, sectionID: number, rowID: number) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={ () => { this._pressRow(rowID); } }
+            >
               <View style={styles.row}>
                 <Image style={styles.artwork} source={{ uri: `data:image/png;base64, ${rowData.artwork}` }} />
                 <View style={styles.body}>
@@ -67,6 +76,10 @@ class AlbumList extends React.Component {
         } }
       />
     )
+  }
+
+  _pressRow(rowID: number) {
+    console.log('Press!', rowID);
   }
 }
 
