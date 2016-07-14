@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import {
-  NativeModules,
   StyleSheet,
   View,
   Text,
@@ -16,16 +15,12 @@ import {
 import {
   TABS,
 } from './const';
-import {
-  Loading,
-} from './view/common';
 import SongsView  from './view/songs';
 import AlbumsView from './view/albums';
 
 // $FlowFixMe
 @observer
 class App extends React.Component {
-  albums = [];
   @observable selectedTab: string = TABS.ARTIST;
   _switchTab: () => boolean;
 
@@ -34,21 +29,9 @@ class App extends React.Component {
     this._switchTab = this._switchTab.bind(this);
   }
 
-  componentDidMount() {
-    const that = this;
-    NativeModules.MPMediaManager.getAlbums()
-      .then((albums) => {
-        that.albums = albums;
-        that.forceUpdate();
-      });
-  }
-
   render() {
-    const { selectedTab, albums } = this;
-
-    if (albums.length === 0) {
-      return <Loading />;
-    }
+    const { selectedTab, } = this;
+    const { albums, } = this.props;
 
     return (
       <TabBarIOS

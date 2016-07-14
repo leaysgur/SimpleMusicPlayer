@@ -3,7 +3,7 @@ import {
   AppRegistry,
 } from 'react-native';
 
-import SimpleMusicPlayer from './src/app';
+import SimpleMusicPlayer from './src';
 
 AppRegistry.registerComponent(
   'SimpleMusicPlayer',
