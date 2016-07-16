@@ -2,6 +2,7 @@
 import React from 'react';
 import {
   NavigatorIOS,
+  StyleSheet,
   View,
   Text,
 } from 'react-native';
@@ -10,6 +11,12 @@ import AlbumList from './list';
 import type {
   Album,
 } from '../../store/app';
+
+const styles = StyleSheet.create({
+  view: {
+    flex: 1
+  }
+});
 
 class AlbumsView extends React.Component {
   props: {
@@ -30,7 +37,7 @@ class AlbumsView extends React.Component {
     return (
       <NavigatorIOS
         initialRoute={route}
-        style={{flex: 1}}
+        style={styles.view}
       />
     );
   }

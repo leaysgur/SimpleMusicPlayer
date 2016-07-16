@@ -18,19 +18,28 @@ import type {
 } from '../../store/app';
 
 const styles = StyleSheet.create({
-  row: {
+  album: {
+    height: 140,
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     padding: 10,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc'
   },
-  artwork: {
-    width: 55,
-    height: 55,
+  album_artwork: {
+    width: 120,
+    height: 120,
   },
-  body: {
+  album_body: {
     flex: 1,
     paddingLeft: 10
+  },
+
+  list_row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
   }
 });
 
@@ -51,36 +60,35 @@ class AlbumItem extends React.Component {
     })).cloneWithRows(songs)
 
     return (
-      <View>
-        <View style={styles.row}>
-          <Image style={styles.artwork} source={{ uri: `data:image/png;base64, ${artwork}` }} />
-          <View style={styles.body}>
-            <Text>{title}</Text>
-            <Text>{artist} </Text>
-          </View>
-        </View>
-
-        <ListView
-          dataSource={dataSource}
-          renderRow={ (rowData: Song) => {
-            return (
-              <TouchableOpacity
-                onPress={ () => { console.log(rowData); } }
-              >
-                <View style={styles.row}>
-                  <View style={styles.body}>
-                    <Text>{rowData.title}</Text>
-                    <Text>{rowData.duration}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          } }
-          renderSeparator={ (sectionID: number, rowID: number) => {
-            return <Separator key={`${sectionID}-${rowID}`} />
-          } }
-        />
-      </View>
+      <ListView
+        dataSource={dataSource}
+        renderSectionHeader= { () => {
+          return (
+            <View style={styles.album}>
+              <Image style={styles.album_artwork} source={{ uri: `data:image/png;base64, ${artwork}` }} />
+              <View style={styles.album_body}>
+                <Text>{title}</Text>
+                <Text>{artist} </Text>
+              </View>
+            </View>
+          );
+        } }
+        renderRow={ (rowData: Song) => {
+          return (
+            <TouchableOpacity
+              onPress={ () => { console.log(rowData); } }
+            >
+              <View style={styles.list_row}>
+                <Text>{rowData.title}</Text>
+                <Text>{rowData.duration}</Text>
+              </View>
+            </TouchableOpacity>
+          );
+        } }
+        renderSeparator={ (sectionID: number, rowID: number) => {
+          return <Separator key={`${sectionID}-${rowID}`} />
+        } }
+      />
     );
   }
 }
