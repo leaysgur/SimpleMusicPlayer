@@ -15,9 +15,10 @@ class AppStore {
 }
 
 export type Song = {
-  title:   string;
-  artist:  string;
-  artwork: string;
+  title:    string;
+  artist:   string;
+  artwork:  string;
+  duration: string;
 };
 
 export type Album = {

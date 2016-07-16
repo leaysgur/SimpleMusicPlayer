@@ -15,6 +15,13 @@ func _image2String(image: UIImage) -> String {
   return encodeString
 }
 
+func _formatTimeString(d: Double) -> String {
+  let s: Int = Int(d % 60)
+  let m: Int = Int((d - Double(s)) / 60 % 60)
+  let h: Int = Int((d - Double(m) - Double(s)) / 3600 % 3600)
+  let str = String(format: "%02d:%02d:%02d", h, m, s)
+  return str
+}
 
 @objc(MPMediaManager) class MPMediaManager: NSObject {
   
@@ -40,17 +47,18 @@ func _image2String(image: UIImage) -> String {
         var songs = [[String: String]]()
         for song in (album.items) {
           songs.append([
-            "title": song.title!,
-            "artist": song.artist!,
-            "artwork": artworkStr
+            "title":    song.title!,
+            "artist":   song.artist!,
+            //"artwork":  artworkStr,
+            "duration": _formatTimeString(song.playbackDuration)
           ])
         }
         
         albums.append([
-          "title":  title  ?? "No title",
-          "artist": artist ?? "V.A.",
+          "title":   title  ?? "No title",
+          "artist":  artist ?? "V.A.",
           "artwork": artworkStr,
-          "songs": songs
+          "songs":   songs
         ])
       }
     }

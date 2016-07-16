@@ -70,6 +70,7 @@ class AlbumItem extends React.Component {
                 <View style={styles.row}>
                   <View style={styles.body}>
                     <Text>{rowData.title}</Text>
+                    <Text>{rowData.duration}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
