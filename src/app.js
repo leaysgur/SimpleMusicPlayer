@@ -18,7 +18,9 @@ import {
 import SongsView  from './view/songs';
 import AlbumsView from './view/albums';
 
-import type { AppState, } from './store/app';
+import type {
+  AppState,
+} from './store/app';
 
 // $FlowFixMe
 @observer

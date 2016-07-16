@@ -7,6 +7,10 @@ import {
 } from 'react-native';
 import AlbumList from './list';
 
+import type {
+  Album,
+} from '../../store/app';
+
 class AlbumsView extends React.Component {
   props: {
     albums: [Object]

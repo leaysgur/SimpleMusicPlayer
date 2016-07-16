@@ -11,12 +11,11 @@ import {
 import {
   Separator,
 } from '../common';
+import AlbumItem from './item';
 
-type Album = {
-  title:   string;
-  artist:  string;
-  artwork: string;
-};
+import type {
+  Album,
+} from '../../store/app';
 
 const styles = StyleSheet.create({
   row: {
@@ -36,17 +35,10 @@ const styles = StyleSheet.create({
 });
 
 class AlbumList extends React.Component {
-  _pressRow: () => bool;
-
   props: {
-    albums: [Album]
+    navigator: Object,
+    albums: [Album],
   };
-
-  constructor() {
-    super();
-
-    this._pressRow = this._pressRow.bind(this);
-  }
 
   render() {
     const dataSource = (new ListView.DataSource({
@@ -56,10 +48,10 @@ class AlbumList extends React.Component {
     return (
       <ListView
         dataSource={dataSource}
-        renderRow={ (rowData: Album, sectionID: number, rowID: number) => {
+        renderRow={ (rowData: Album) => {
           return (
             <TouchableOpacity
-              onPress={ () => { this._pressRow(rowID); } }
+              onPress={ () => { this._pressRow(rowData); } }
             >
               <View style={styles.row}>
                 <Image style={styles.artwork} source={{ uri: `data:image/png;base64, ${rowData.artwork}` }} />
@@ -78,8 +70,14 @@ class AlbumList extends React.Component {
     )
   }
 
-  _pressRow(rowID: number) {
-    console.log('Press!', rowID);
+  _pressRow(album: Album) {
+    this.props.navigator.push({
+      component: AlbumItem,
+      title: album.title,
+      passProps: {
+        album: album,
+      }
+    });
   }
 }
 
