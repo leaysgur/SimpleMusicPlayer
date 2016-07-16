@@ -7,37 +7,28 @@ import {
   Loading,
 } from './view/common';
 import App from './app';
+import AppStore from './store/app';
 
 class Bootstrap extends React.Component {
-  state = {
-    isReady: false,
-    albums:  []
-  };
 
   componentDidMount() {
     const that = this;
     NativeModules.MPMediaManager.getAlbums()
       .then((albums) => {
-        that.setState({
-          albums: albums,
-          isReady: true,
-        })
+        AppStore.isReady = true;
+        AppStore.albums = [].slice.call(albums);
+        that.forceUpdate();
       });
   }
 
   render() {
-    const {
-      albums,
-      isReady,
-    } = this.state;
-
-    if (!isReady) {
+    if (!AppStore.isReady) {
       return <Loading />;
     }
 
     return (
       <App
-        albums={albums}
+        store={AppStore}
       />
     );
   }

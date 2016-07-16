@@ -18,10 +18,14 @@ import {
 import SongsView  from './view/songs';
 import AlbumsView from './view/albums';
 
+import type { AppState, } from './store/app';
+
 // $FlowFixMe
 @observer
 class App extends React.Component {
-  @observable selectedTab: string = TABS.ARTIST;
+  props: {
+    store: AppState
+  };
   _switchTab: () => boolean;
 
   constructor() {
@@ -30,8 +34,10 @@ class App extends React.Component {
   }
 
   render() {
-    const { selectedTab, } = this;
-    const { albums, } = this.props;
+    const {
+      selectedTab,
+      albums,
+    } = this.props.store;
 
     return (
       <TabBarIOS
@@ -74,7 +80,7 @@ class App extends React.Component {
   }
 
   _switchTab(tabName: string) {
-    this.selectedTab = tabName;
+    this.props.store.selectedTab = tabName;
   }
 
   _renderContent(pageText: string) {
