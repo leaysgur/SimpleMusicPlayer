@@ -41,15 +41,11 @@ func _formatTimeString(d: Double) -> String {
           continue
         }
 
-        let artworkStr = _image2String(artwork.imageWithSize(artwork.bounds.size)!);
-        
-
         var songs = [[String: String]]()
         for song in (album.items) {
           songs.append([
             "title":    song.title!,
             "artist":   song.artist!,
-            //"artwork":  artworkStr,
             "duration": _formatTimeString(song.playbackDuration)
           ])
         }
@@ -57,7 +53,7 @@ func _formatTimeString(d: Double) -> String {
         albums.append([
           "title":   title  ?? "No title",
           "artist":  artist ?? "V.A.",
-          "artwork": artworkStr,
+          "artwork": _image2String(artwork.imageWithSize(artwork.bounds.size)!),
           "songs":   songs
         ])
       }
