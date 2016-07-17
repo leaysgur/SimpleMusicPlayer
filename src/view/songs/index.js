@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import {
-  NativeModules,
+  StyleSheet,
   NavigatorIOS,
   View,
   Text,
@@ -11,25 +11,15 @@ import {
 } from '../common';
 import SongList from './list';
 
-class SongsView extends React.Component {
-  state = {
-    songs: []
-  };
-
-  componentDidMount() {
-    const that = this;
-    // NativeModules.MPMediaManager.getSongs()
-    //   .then((songs) => {
-    //     that.setState({ songs: songs });
-    //   });
+const styles = StyleSheet.create({
+  view: {
+    flex: 1
   }
+});
 
+class SongsView extends React.Component {
   render() {
-    const { songs, } = this.state;
-
-    if (songs.length === 0) {
-      return <Loading />;
-    }
+    const { songs, } = this.props;
 
     const route = {
       component: SongList,
@@ -44,7 +34,7 @@ class SongsView extends React.Component {
     return (
       <NavigatorIOS
         initialRoute={route}
-        style={{flex: 1}}
+        style={styles.view}
       />
     );
   }

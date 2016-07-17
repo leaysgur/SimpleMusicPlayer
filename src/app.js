@@ -46,6 +46,7 @@ class App extends React.Component {
       selectedTab,
     } = this.props.store;
     const {
+      songs,
       albums,
     } = this.props.model;
 
@@ -60,7 +61,9 @@ class App extends React.Component {
           selected={selectedTab === TABS.SONGS}
           onPress={ () => { this._switchTab(TABS.SONGS); } }
         >
-          <SongsView pageText={TABS.SONGS} />
+          <SongsView
+            songs={songs}
+          />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アーティスト"

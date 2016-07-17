@@ -10,15 +10,9 @@ import {
   Separator,
 } from '../common';
 
-type Song = {
-  title: string;
-  artist: string;
-  albumTitle: string;
-};
-
 class SongList extends React.Component {
   props: {
-    songs: [Song]
+    songs: Songs;
   };
 
   render() {
@@ -34,7 +28,7 @@ class SongList extends React.Component {
           return (
             <TouchableOpacity>
               <Text>
-                {rowData.title} - {rowData.artist} [{rowData.albumTitle}]
+                {rowData.title} - {rowData.artist}
               </Text>
             </TouchableOpacity>
           );

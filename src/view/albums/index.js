@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
 class AlbumsView extends React.Component {
   props: {
-    albums: [Object]
+    albums: Albums
   };
 
   render() {

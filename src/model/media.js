@@ -1,4 +1,6 @@
 // @flow
+const slice = [].slice;
+
 class Media {
   isFetching: boolean = true;
   songs: [Object] = [];
@@ -8,7 +10,11 @@ class Media {
   init(albums: Albums) {
     this.isFetching = false;
 
-    this.albums = [].slice.call(albums);
+    this.albums = slice.call(albums);
+    this.albums.forEach((album) => {
+      this.songs = this.songs.concat(album.songs);
+    })
+    this.songs.sort((a, b) => { return a.title > b.title ? 1 : -1; });
   }
 }
 
