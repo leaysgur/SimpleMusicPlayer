@@ -8,27 +8,29 @@ import {
 } from './view/common';
 import App from './app';
 import AppStore from './store/app';
+import MediaModel from './model/media';
 
 class Bootstrap extends React.Component {
 
   componentDidMount() {
     const that = this;
-    NativeModules.MPMediaManager.getAlbums()
+    NativeModules.MPMediaManager
+      .getAlbums()
       .then((albums) => {
-        AppStore.isReady = true;
-        AppStore.albums = [].slice.call(albums);
+        MediaModel.init(albums);
         that.forceUpdate();
       });
   }
 
   render() {
-    if (!AppStore.isReady) {
+    if (MediaModel.isFetching) {
       return <Loading />;
     }
 
     return (
       <App
         store={AppStore}
+        model={MediaModel}
       />
     );
   }

@@ -13,10 +13,6 @@ import {
 } from '../common';
 import AlbumItem from './item';
 
-import type {
-  Album,
-} from '../../store/app';
-
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',

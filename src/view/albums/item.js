@@ -12,11 +12,6 @@ import {
   Separator,
 } from '../common';
 
-import type {
-  Song,
-  Album,
-} from '../../store/app';
-
 const styles = StyleSheet.create({
   album: {
     height: 140,

@@ -18,15 +18,21 @@ import {
 import SongsView  from './view/songs';
 import AlbumsView from './view/albums';
 
-import type {
-  AppState,
-} from './store/app';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+});
 
 // $FlowFixMe
 @observer
 class App extends React.Component {
   props: {
-    store: AppState
+    store: AppState;
+    model: Object;
   };
   _switchTab: () => boolean;
 
@@ -38,8 +44,10 @@ class App extends React.Component {
   render() {
     const {
       selectedTab,
-      albums,
     } = this.props.store;
+    const {
+      albums,
+    } = this.props.model;
 
     return (
       <TabBarIOS
@@ -93,14 +101,5 @@ class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
 
 export default App;

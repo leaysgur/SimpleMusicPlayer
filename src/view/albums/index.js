@@ -8,10 +8,6 @@ import {
 } from 'react-native';
 import AlbumList from './list';
 
-import type {
-  Album,
-} from '../../store/app';
-
 const styles = StyleSheet.create({
   view: {
     flex: 1
