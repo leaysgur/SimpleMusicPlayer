@@ -35,6 +35,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
+    paddingLeft: 0
+  },
+  list_row_trackNo: {
+    width: 30,
+    textAlign: 'center'
+  },
+  list_row_title: {
+    flex: 1,
+    textAlign: 'left'
   }
 });
 
@@ -74,7 +83,8 @@ class AlbumItem extends React.Component {
               onPress={ () => { console.log(rowData); } }
             >
               <View style={styles.list_row}>
-                <Text>{rowData.title}</Text>
+                <Text style={styles.list_row_trackNo}>{rowData.trackNo}</Text>
+                <Text style={styles.list_row_title}>{rowData.title}</Text>
                 <Text>{rowData.duration}</Text>
               </View>
             </TouchableOpacity>

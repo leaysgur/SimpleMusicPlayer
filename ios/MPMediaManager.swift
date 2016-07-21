@@ -41,11 +41,12 @@ func _formatTimeString(d: Double) -> String {
           continue
         }
 
-        var songs = [[String: String]]()
+        var songs = [[String: AnyObject]]()
         for song in (album.items) {
           songs.append([
             "title":    song.title!,
             "artist":   song.artist!,
+            "trackNo":  song.albumTrackNumber,
             "duration": _formatTimeString(song.playbackDuration)
           ])
         }
