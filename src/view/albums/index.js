@@ -1,10 +1,8 @@
 // @flow
 import React from 'react';
 import {
-  NavigatorIOS,
   StyleSheet,
-  View,
-  Text,
+  NavigatorIOS,
 } from 'react-native';
 import AlbumList from './list';
 
@@ -14,29 +12,25 @@ const styles = StyleSheet.create({
   }
 });
 
-class AlbumsView extends React.Component {
-  props: {
-    albums: Albums
+const AlbumsView = ({
+  albums,
+}: {
+  albums: Albums;
+}) => {
+  const route = {
+    component: AlbumList,
+    title: 'すべてのアルバム',
+    passProps: {
+      albums: albums,
+    }
   };
 
-  render() {
-    const { albums, } = this.props;
-
-    const route = {
-      component: AlbumList,
-      title: 'すべてのアルバム',
-      passProps: {
-        albums: albums,
-      }
-    };
-
-    return (
-      <NavigatorIOS
-        initialRoute={route}
-        style={styles.view}
-      />
-    );
-  }
-}
+  return (
+    <NavigatorIOS
+      initialRoute={route}
+      style={styles.view}
+    />
+  );
+};
 
 export default AlbumsView;

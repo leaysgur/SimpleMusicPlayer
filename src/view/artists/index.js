@@ -1,10 +1,8 @@
 // @flow
 import React from 'react';
 import {
-  NavigatorIOS,
   StyleSheet,
-  View,
-  Text,
+  NavigatorIOS,
 } from 'react-native';
 import ArtistList from './list';
 
@@ -14,29 +12,25 @@ const styles = StyleSheet.create({
   }
 });
 
-class ArtistsView extends React.Component {
-  props: {
-    artists: Artists
+const ArtistsView = ({
+  artists,
+}: {
+  artists: Artists;
+}) => {
+  const route = {
+    component: ArtistList,
+    title: 'すべてのアーティスト',
+    passProps: {
+      artists: artists,
+    }
   };
 
-  render() {
-    const { artists, } = this.props;
-
-    const route = {
-      component: ArtistList,
-      title: 'すべてのアーティスト',
-      passProps: {
-        artists: artists,
-      }
-    };
-
-    return (
-      <NavigatorIOS
-        initialRoute={route}
-        style={styles.view}
-      />
-    );
-  }
-}
+  return (
+    <NavigatorIOS
+      initialRoute={route}
+      style={styles.view}
+    />
+  );
+};
 
 export default ArtistsView;

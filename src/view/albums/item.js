@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {
   Separator,
+  items2DataSource,
 } from '../common';
 
 const styles = StyleSheet.create({
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
 
 class AlbumItem extends React.Component {
   props: {
-    album: Album,
+    album: Album;
   };
 
   render() {
@@ -59,13 +60,9 @@ class AlbumItem extends React.Component {
       artwork,
       songs,
     } = this.props.album;
-    const dataSource = (new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    })).cloneWithRows(songs)
-
     return (
       <ListView
-        dataSource={dataSource}
+        dataSource={items2DataSource(songs)}
         renderSectionHeader= { () => {
           return (
             <View style={styles.album}>
@@ -79,9 +76,7 @@ class AlbumItem extends React.Component {
         } }
         renderRow={ (rowData: Song) => {
           return (
-            <TouchableOpacity
-              onPress={ () => { console.log(rowData); } }
-            >
+            <TouchableOpacity>
               <View style={styles.list_row}>
                 <Text style={styles.list_row_trackNo}>{rowData.trackNo}</Text>
                 <Text style={styles.list_row_title}>{rowData.title}</Text>

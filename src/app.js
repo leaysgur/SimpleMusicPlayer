@@ -1,32 +1,18 @@
 // @flow
 import React from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
   TabBarIOS,
 } from 'react-native';
-import {
-  observable,
-} from 'mobx';
 import {
   observer,
 } from 'mobx-react/native';
 import {
   TABS,
 } from './const';
-import SongsView  from './view/songs';
+import SongsView   from './view/songs';
 import ArtistsView from './view/artists';
-import AlbumsView from './view/albums';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
+import AlbumsView  from './view/albums';
+import PlayingView from './view/playing';
 
 // $FlowFixMe
 @observer
@@ -35,17 +21,11 @@ class App extends React.Component {
     store: AppState;
     model: Object;
   };
-  _switchTab: () => boolean;
-
-  constructor() {
-    super();
-    this._switchTab = this._switchTab.bind(this);
-  }
 
   render() {
     const {
-      selectedTab$,
-    } = this.props.store;
+      store,
+    } = this.props;
     const {
       songs,
       artists,
@@ -60,51 +40,33 @@ class App extends React.Component {
       >
         <TabBarIOS.Item
           title="曲"
-          selected={selectedTab$ === TABS.SONGS}
-          onPress={ () => { this._switchTab(TABS.SONGS); } }
+          selected={store.selectedTab$ === TABS.SONGS}
+          onPress={ () => { store.selectedTab$ = TABS.SONGS; } }
         >
-          <SongsView
-            songs={songs}
-          />
+          <SongsView songs={songs} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アーティスト"
-          selected={selectedTab$ === TABS.ARTIST}
-          onPress={ () => { this._switchTab(TABS.ARTIST); } }
+          selected={store.selectedTab$ === TABS.ARTIST}
+          onPress={ () => { store.selectedTab$ = TABS.ARTIST; } }
         >
-          <ArtistsView
-            artists={artists}
-          />
+          <ArtistsView artists={artists} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アルバム"
-          selected={selectedTab$ === TABS.ALBUM}
-          onPress={ () => { this._switchTab(TABS.ALBUM); } }
+          selected={store.selectedTab$ === TABS.ALBUM}
+          onPress={ () => { store.selectedTab$ = TABS.ALBUM; } }
         >
-          <AlbumsView
-            albums={albums}
-          />
+          <AlbumsView albums={albums} />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="再生中"
-          selected={selectedTab$ === TABS.PLAYING}
-          onPress={ () => { this._switchTab(TABS.PLAYING); } }
+          selected={store.selectedTab$ === TABS.PLAYING}
+          onPress={ () => { store.selectedTab$ = TABS.PLAYING; } }
         >
-          {this._renderContent(TABS.PLAYING)}
+          <PlayingView />
         </TabBarIOS.Item>
       </TabBarIOS>
-    );
-  }
-
-  _switchTab(tabName: string) {
-    this.props.store.selectedTab$ = tabName;
-  }
-
-  _renderContent(pageText: string) {
-    return (
-      <View style={styles.container}>
-        <Text>{pageText}</Text>
-      </View>
     );
   }
 }
