@@ -1,6 +1,6 @@
 // @flow
 export type AppState = {
-  selectedTab: string;
+  selectedTab$: string;
 };
 
 export type Song = {

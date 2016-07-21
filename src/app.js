@@ -43,7 +43,7 @@ class App extends React.Component {
 
   render() {
     const {
-      selectedTab,
+      selectedTab$,
     } = this.props.store;
     const {
       songs,
@@ -58,7 +58,7 @@ class App extends React.Component {
       >
         <TabBarIOS.Item
           title="曲"
-          selected={selectedTab === TABS.SONGS}
+          selected={selectedTab$ === TABS.SONGS}
           onPress={ () => { this._switchTab(TABS.SONGS); } }
         >
           <SongsView
@@ -67,14 +67,14 @@ class App extends React.Component {
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アーティスト"
-          selected={selectedTab === TABS.ARTIST}
+          selected={selectedTab$ === TABS.ARTIST}
           onPress={ () => { this._switchTab(TABS.ARTIST); } }
         >
           {this._renderContent(TABS.ARTIST)}
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アルバム"
-          selected={selectedTab === TABS.ALBUM}
+          selected={selectedTab$ === TABS.ALBUM}
           onPress={ () => { this._switchTab(TABS.ALBUM); } }
         >
           <AlbumsView
@@ -83,7 +83,7 @@ class App extends React.Component {
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="再生中"
-          selected={selectedTab === TABS.PLAYING}
+          selected={selectedTab$ === TABS.PLAYING}
           onPress={ () => { this._switchTab(TABS.PLAYING); } }
         >
           {this._renderContent(TABS.PLAYING)}
@@ -93,7 +93,7 @@ class App extends React.Component {
   }
 
   _switchTab(tabName: string) {
-    this.props.store.selectedTab = tabName;
+    this.props.store.selectedTab$ = tabName;
   }
 
   _renderContent(pageText: string) {

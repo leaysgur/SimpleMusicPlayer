@@ -8,7 +8,7 @@ import {
 } from '../const';
 
 class AppStore {
-  @observable selectedTab: string = TABS.ARTIST;
+  @observable selectedTab$: string = TABS.ARTIST;
 }
 
 export default (new AppStore());
