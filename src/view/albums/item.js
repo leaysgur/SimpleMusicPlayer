@@ -69,7 +69,7 @@ class AlbumItem extends React.Component {
         renderSectionHeader= { () => {
           return (
             <View style={styles.album}>
-              <Image style={styles.album_artwork} source={{ uri: `data:image/png;base64, ${artwork}` }} />
+              <Image style={styles.album_artwork} source={{ uri: artwork }} />
               <View style={styles.album_body}>
                 <Text>{title}</Text>
                 <Text>{artist} </Text>

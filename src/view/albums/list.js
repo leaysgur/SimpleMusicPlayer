@@ -50,7 +50,7 @@ class AlbumList extends React.Component {
               onPress={ () => { this._pressRow(rowData); } }
             >
               <View style={styles.row}>
-                <Image style={styles.artwork} source={{ uri: `data:image/png;base64, ${rowData.artwork}` }} />
+                <Image style={styles.artwork} source={{ uri: rowData.artwork }} />
                 <View style={styles.body}>
                   <Text>{rowData.title}</Text>
                   <Text>{rowData.artist} </Text>

@@ -50,7 +50,7 @@ class ArtistList extends React.Component {
               onPress={ () => { this._pressRow(rowData); } }
             >
               <View style={styles.row}>
-                <Image style={styles.artwork} source={{ uri: `data:image/png;base64, ${rowData.artwork}` }} />
+                <Image style={styles.artwork} source={{ uri: rowData.artwork }} />
                 <View style={styles.body}>
                   <Text>{rowData.name}</Text>
                   <Text>{rowData.albums.length}枚のアルバム</Text>

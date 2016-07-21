@@ -47,7 +47,7 @@ class SongList extends React.Component {
           return (
             <TouchableOpacity>
               <View style={styles.row}>
-                <Image style={styles.artwork} source={{ uri: `data:image/png;base64, ${rowData.artwork}` }} />
+                <Image style={styles.artwork} source={{ uri: rowData.artwork }} />
                 <View style={styles.body}>
                   <Text>{rowData.title}</Text>
                   <Text>{rowData.artist} / {rowData.albumTitle}</Text>
