@@ -26,9 +26,7 @@ class SongsView extends React.Component {
       title: 'すべての曲',
       passProps: {
         songs: songs,
-      },
-      rightButtonTitle: '@',
-      onRightButtonPress: () => {}
+      }
     };
 
     return (

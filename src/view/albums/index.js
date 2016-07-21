@@ -24,7 +24,7 @@ class AlbumsView extends React.Component {
 
     const route = {
       component: AlbumList,
-      title: 'アルバム',
+      title: 'すべてのアルバム',
       passProps: {
         albums: albums,
       }
