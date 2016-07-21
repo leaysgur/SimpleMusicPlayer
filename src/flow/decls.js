@@ -19,3 +19,10 @@ export type Album = {
   songs:   Songs;
 };
 export type Albums = [Album];
+
+export type Artist = {
+  name:    string;
+  artwork: string;
+  albums:  Albums;
+};
+export type Artists = [Artist];

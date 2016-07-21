@@ -16,6 +16,7 @@ import {
   TABS,
 } from './const';
 import SongsView  from './view/songs';
+import ArtistsView from './view/artists';
 import AlbumsView from './view/albums';
 
 const styles = StyleSheet.create({
@@ -47,6 +48,7 @@ class App extends React.Component {
     } = this.props.store;
     const {
       songs,
+      artists,
       albums,
     } = this.props.model;
 
@@ -70,7 +72,9 @@ class App extends React.Component {
           selected={selectedTab$ === TABS.ARTIST}
           onPress={ () => { this._switchTab(TABS.ARTIST); } }
         >
-          {this._renderContent(TABS.ARTIST)}
+          <ArtistsView
+            artists={artists}
+          />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アルバム"
