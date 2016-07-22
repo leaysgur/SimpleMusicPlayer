@@ -4,12 +4,13 @@ export type AppState = {
 };
 
 export type Song = {
-  title:      string;
-  artist:     string;
-  artwork:    string;
-  albumTitle: string;
-  trackNo:    number;
-  duration:   string;
+  persistentID: string;
+  title:        string;
+  artist:       string;
+  artwork:      string;
+  albumTitle:   string;
+  trackNo:      number;
+  duration:     string;
 };
 export type Songs = [Song];
 

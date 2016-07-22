@@ -4,6 +4,7 @@ import {
   ListView,
   Text,
   TouchableOpacity,
+  NativeModules,
 } from 'react-native';
 import {
   Separator,
@@ -22,7 +23,9 @@ class SongList extends React.Component {
         dataSource={items2DataSource(this.props.songs)}
         renderRow={ (rowData: Song) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={ () => {
+              NativeModules.MPMediaManager.playSong(rowData.persistentID);
+            } }>
               <ThumbListItem
                 imgUri={rowData.artwork}
               >

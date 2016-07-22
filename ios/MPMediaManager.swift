@@ -8,22 +8,25 @@
 import Foundation
 import MediaPlayer
 
-func _image2base64String(image: UIImage) -> String {
-  let data: NSData = UIImagePNGRepresentation(image)!
-  let encodeString: String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
-
-  return "data:image/png;base64," + encodeString
-}
-
-func _formatTimeString(d: Double) -> String {
-  let s: Int = Int(d % 60)
-  let m: Int = Int((d - Double(s)) / 60 % 60)
-  let h: Int = Int((d - Double(m) - Double(s)) / 3600 % 3600)
-  let str = String(format: "%02d:%02d:%02d", h, m, s)
-  return str
-}
-
 @objc(MPMediaManager) class MPMediaManager: NSObject {
+  
+  var player = MPMusicPlayerController()
+
+  override init() {
+    super.init()
+    
+    player = MPMusicPlayerController.systemMusicPlayer()
+  }
+  
+  @objc func playSong(persistentID: String) {
+    let songsQuery: MPMediaQuery = MPMediaQuery.songsQuery()
+
+    // TODO: js側とソートの順が違うので表示がおかしく見える
+    player.setQueueWithQuery(songsQuery)
+    player.nowPlayingItem = _findSongByPersistentId(persistentID)
+
+    player.play()
+  }
   
   @objc func getAlbums(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     let albumsQuery: MPMediaQuery = MPMediaQuery.albumsQuery()
@@ -44,10 +47,11 @@ func _formatTimeString(d: Double) -> String {
         var songs = [[String: AnyObject]]()
         for song in (album.items) {
           songs.append([
-            "title":    song.title!,
-            "artist":   song.artist!,
-            "trackNo":  song.albumTrackNumber,
-            "duration": _formatTimeString(song.playbackDuration)
+            "persistentID": String(song.persistentID),
+            "title":        song.title!,
+            "artist":       song.artist!,
+            "trackNo":      song.albumTrackNumber,
+            "duration":     _formatTimeString(song.playbackDuration)
           ])
         }
         
@@ -63,4 +67,35 @@ func _formatTimeString(d: Double) -> String {
     resolve(albums)
   }
 
+}
+
+
+func _image2base64String(image: UIImage) -> String {
+  let data: NSData = UIImagePNGRepresentation(image)!
+  let encodeString: String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
+  
+  return "data:image/png;base64," + encodeString
+}
+
+func _formatTimeString(d: Double) -> String {
+  let s: Int = Int(d % 60)
+  let m: Int = Int((d - Double(s)) / 60 % 60)
+  let h: Int = Int((d - Double(m) - Double(s)) / 3600 % 3600)
+  let str = String(format: "%02d:%02d:%02d", h, m, s)
+  return str
+}
+
+func _findSongByPersistentId(persistentID: String) -> MPMediaItem? {
+  let songQuery = MPMediaQuery()
+  songQuery.addFilterPredicate(MPMediaPropertyPredicate(
+    value: persistentID,
+    forProperty: MPMediaItemPropertyPersistentID,
+    comparisonType: MPMediaPredicateComparison.EqualTo
+  ))
+  
+  var song: MPMediaItem?
+  if let items = songQuery.items where items.count > 0 {
+    song = items[0]
+  }
+  return song
 }
