@@ -1,32 +1,46 @@
 // @flow
-const slice = [].slice;
-
 class Media {
   isFetching: boolean = true;
   songs: Songs = [];
   artists: Artists = [];
   albums: Albums = [];
 
-  init(albums: Albums) {
+  init({
+    songs,
+    albums,
+    albumMap,
+    songMap
+  }: {
+    songs:    [string];
+    albums:   [Object];
+    albumMap: Object;
+    songMap:  Object;
+  }) {
+    let artistMap = {};
+
     this.isFetching = false;
 
-    // アルバム
-    this.albums = albums.sort((a, b) => { return a.title > b.title ? 1 : -1 });
+    this.songs = songs.map((id) => {
+      const song = songMap[id];
+      song.persistentID = id;
+      song.artwork = albumMap[song.albumPersistentID].artwork;
+      song.albumTitle = albumMap[song.albumPersistentID].title;
+      return song;
+    });
 
-    // 曲
-    this.albums.forEach((album) => {
-      const songs = album.songs.map((song) => {
-        song.albumTitle = album.title;
-        song.artwork    = album.artwork;
+    this.albums = albums.map((album) => {
+      album.title = albumMap[album.id].title;
+      album.artist = albumMap[album.id].artist;
+      album.artwork = albumMap[album.id].artwork;
+      album.songs = album.songs.map((id) => {
+        const song = songMap[id];
+        song.persistentID = id;
+        song.artwork = albumMap[song.albumPersistentID].artwork;
+        song.albumTitle = albumMap[song.albumPersistentID].title;
         return song;
       });
-      this.songs = this.songs.concat(songs);
-    })
-    this.songs.sort((a, b) => { return a.title > b.title ? 1 : -1; });
 
-    // アーティスト
-    let artistMap = {};
-    this.albums.forEach((album) => {
+      // ついでにアーティスト用のデータをつくる
       const artist = album.artist;
       if (artist in artistMap) {
         artistMap[artist].albums.push(album);
@@ -36,7 +50,10 @@ class Media {
           albums: [album]
         };
       }
-    });
+
+      return album;
+    }).sort((a, b) => { return a.title > b.title ? 1 : -1; });
+
     this.artists = Object.keys(artistMap).map((key) => {
       const albums = artistMap[key].albums;
       return {
@@ -45,7 +62,6 @@ class Media {
         albums:  albums
       };
     }).sort((a, b) => { return a.name > b.name ? 1 : -1; });
-    artistMap = {}; // メモリ開放したいけど、nullいれると型がブレる・・
   }
 }
 

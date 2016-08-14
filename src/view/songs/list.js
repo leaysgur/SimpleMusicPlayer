@@ -24,7 +24,7 @@ class SongList extends React.Component {
         renderRow={ (rowData: Song) => {
           return (
             <TouchableOpacity onPress={ () => {
-              NativeModules.MPMediaManager.playSong(rowData.persistentID);
+              NativeModules.MediaBridge.playSong(rowData.persistentID);
             } }>
               <ThumbListItem
                 imgUri={rowData.artwork}

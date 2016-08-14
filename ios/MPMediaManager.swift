@@ -1,99 +1,122 @@
 import MediaPlayer
 
-@objc(MPMediaManager) class MPMediaManager: RCTEventEmitter {
-  
-  var player = MPMusicPlayerController()
+@objc(MediaBridge) class MediaBridge: NSObject {
+  let player = MPMusicPlayerController.systemMusicPlayer()
+  var _nowPlayingQuery = MPMediaQuery()
 
-  override func supportedEvents() -> [String]! {
-    return ["onend"]
-  }
-  
-  override init() {
-    super.init()
-    
-    player = MPMusicPlayerController.systemMusicPlayer()
-    player.repeatMode = MPMusicRepeatMode.None
-    
-    NSNotificationCenter.defaultCenter().addObserver(
-      self,
-      selector: #selector(MPMediaManager.playItemChanged(_:)),
-      name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification,
-      object: player
+  @objc func fetch(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+    // TODO: なぜか効いてない・・？
+    let noCloudPre = MPMediaPropertyPredicate(
+      value: NSNumber(bool: false),
+      forProperty: MPMediaItemPropertyIsCloudItem
     )
-    player.beginGeneratingPlaybackNotifications()
-  }
-  
-  func playItemChanged(notify: NSNotification) {
-    debugPrint(notify)
-    
-    self.sendEventWithName("onend", body: "fooooo")
-  }
-  
-  @objc func playSong(persistentID: String) {
-    let songQuery = MPMediaQuery()
-    songQuery.addFilterPredicate(MPMediaPropertyPredicate(
-      value: persistentID,
-      forProperty: MPMediaItemPropertyPersistentID,
-      comparisonType: MPMediaPredicateComparison.EqualTo
-    ))
-    player.setQueueWithQuery(songQuery)
-    player.nowPlayingItem = songQuery.items![0]
-    player.play()
-  }
-  
-  @objc func getAlbums(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-    let albumsQuery: MPMediaQuery = MPMediaQuery.albumsQuery()
-    
+
     var albums = [[String: AnyObject]]()
+    let albumsQuery: MPMediaQuery = MPMediaQuery.albumsQuery()
+    albumsQuery.addFilterPredicate(noCloudPre)
+    
+    var albumMap = [String: AnyObject]()
     if let albumCollection: [MPMediaItemCollection] = albumsQuery.collections {
       for album in albumCollection {
-        guard let title = album.representativeItem!.albumTitle else {
+        let albumItem = album.representativeItem!;
+        guard let artwork = albumItem.artwork else {
           continue
         }
-        guard let artist = album.representativeItem!.albumArtist else {
-          continue
-        }
-        guard let artwork = album.representativeItem!.artwork else {
-          continue
-        }
-
-        var songs = [[String: AnyObject]]()
+        
+        let albumPersistentID = String(albumItem.albumPersistentID);
+        albumMap[albumPersistentID] = [
+          "artwork": __image2base64String(artwork.imageWithSize(artwork.bounds.size)!),
+          "title":   albumItem.albumTitle  ?? "No title",
+          "artist":  albumItem.albumArtist ?? "Various Artists",
+        ]
+        
+        var songs = [String]()
         for song in (album.items) {
-          songs.append([
-            "persistentID": String(song.persistentID),
-            "title":        song.title!,
-            "artist":       song.artist!,
-            "trackNo":      song.albumTrackNumber,
-            "duration":     _formatTimeString(song.playbackDuration)
-          ])
+          songs.append(String(song.persistentID))
         }
         
         albums.append([
-          "title":   title  ?? "No title",
-          "artist":  artist ?? "V.A.",
-          "artwork": _image2base64String(artwork.imageWithSize(artwork.bounds.size)!),
-          "songs":   songs
+          "id":    albumPersistentID,
+          "songs": songs
         ])
       }
     }
     
-    resolve(albums)
+    var songs = [String]()
+    var songMap = [String: [String: AnyObject]]()
+    let songsQuery = MPMediaQuery.songsQuery()
+    
+    songsQuery.addFilterPredicate(noCloudPre)
+    if let songCollection: [MPMediaItemCollection] = songsQuery.collections {
+      for song in songCollection {
+        let songItem = song.representativeItem!
+        let persistentID = String(songItem.persistentID)
+        
+        songs.append(persistentID)
+        songMap[persistentID] = [
+          "title":             songItem.title  ?? "No title",
+          "artist":            songItem.artist ?? "Various Artists",
+          "duration":          __formatTimeString(songItem.playbackDuration),
+          "trackNo":           songItem.albumTrackNumber,
+          "albumPersistentID": String(songItem.albumPersistentID)
+        ]
+      }
+    }
+    
+    resolve([
+      "songs":    songs,
+      "albums":   albums,
+      "albumMap": albumMap,
+      "songMap":  songMap
+    ])
+  }
+  
+  @objc func playSong(persistentID: String) {
+    player.setQueueWithQuery(MPMediaQuery.songsQuery())
+    
+    player.nowPlayingItem = self._getNowPlayingItem(persistentID)
+    player.play()
+  }
+  
+  @objc func playAlbumSong(persistentID: String, albumPersistentID: String) {
+    let query = MPMediaQuery.albumsQuery()
+    query.addFilterPredicate(MPMediaPropertyPredicate(
+      value: albumPersistentID,
+      forProperty: MPMediaItemPropertyAlbumPersistentID,
+      comparisonType: MPMediaPredicateComparison.EqualTo
+    ))
+    player.setQueueWithQuery(query)
+    
+    player.nowPlayingItem = self._getNowPlayingItem(persistentID)
+    player.play()
   }
 
+  func _getNowPlayingItem(persistentID: String) -> MPMediaItem {
+    _nowPlayingQuery = MPMediaQuery()
+    
+    _nowPlayingQuery.addFilterPredicate(MPMediaPropertyPredicate(
+      value: persistentID,
+      forProperty: MPMediaItemPropertyPersistentID,
+      comparisonType: MPMediaPredicateComparison.EqualTo
+      ))
+    
+    return _nowPlayingQuery.items![0]
+  }
 }
 
 
-func _image2base64String(image: UIImage) -> String {
+func __image2base64String(image: UIImage) -> String {
   let data: NSData = UIImagePNGRepresentation(image)!
   let encodeString: String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
   
   return "data:image/png;base64," + encodeString
 }
 
-func _formatTimeString(d: Double) -> String {
+func __formatTimeString(d: Double) -> String {
   let s: Int = Int(d % 60)
   let m: Int = Int((d - Double(s)) / 60 % 60)
   let h: Int = Int((d - Double(m) - Double(s)) / 3600 % 3600)
-  let str = String(format: "%02d:%02d:%02d", h, m, s)
-  return str
+  
+  return String(format: "%02d:%02d:%02d", h, m, s)
 }
+

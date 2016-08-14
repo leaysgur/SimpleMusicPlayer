@@ -14,12 +14,10 @@ class Bootstrap extends React.Component {
 
   componentDidMount() {
     const that = this;
-    NativeModules.MPMediaManager
-      .getAlbums()
-      .then((albums) => {
-        MediaModel.init(albums);
-        that.forceUpdate();
-      });
+    NativeModules.MediaBridge.fetch().then((res) => {
+      MediaModel.init(res);
+      that.forceUpdate();
+    });
   }
 
   render() {
