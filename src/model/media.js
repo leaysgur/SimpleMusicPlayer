@@ -11,7 +11,7 @@ class Media {
     this.isFetching = false;
 
     // アルバム
-    this.albums = albums;
+    this.albums = albums.sort((a, b) => { return a.title > b.title ? 1 : -1 });
 
     // 曲
     this.albums.forEach((album) => {
@@ -25,7 +25,7 @@ class Media {
     this.songs.sort((a, b) => { return a.title > b.title ? 1 : -1; });
 
     // アーティスト
-    const artistMap = {};
+    let artistMap = {};
     this.albums.forEach((album) => {
       const artist = album.artist;
       if (artist in artistMap) {
@@ -45,6 +45,7 @@ class Media {
         albums:  albums
       };
     }).sort((a, b) => { return a.name > b.name ? 1 : -1; });
+    artistMap = {}; // メモリ開放したいけど、nullいれると型がブレる・・
   }
 }
 
