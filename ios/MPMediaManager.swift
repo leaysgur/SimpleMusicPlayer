@@ -1,30 +1,43 @@
-//
-//  MPMediaManager.swift
-//  SimpleMusicPlayer
-//
-//  Created by Yuji Sugiura on 2016/07/11.
-//  Copyright © 2016年 Facebook. All rights reserved.
-//
-import Foundation
 import MediaPlayer
 
-@objc(MPMediaManager) class MPMediaManager: NSObject {
+@objc(MPMediaManager) class MPMediaManager: RCTEventEmitter {
   
   var player = MPMusicPlayerController()
 
+  override func supportedEvents() -> [String]! {
+    return ["onend"]
+  }
+  
   override init() {
     super.init()
     
     player = MPMusicPlayerController.systemMusicPlayer()
+    player.repeatMode = MPMusicRepeatMode.None
+    
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(MPMediaManager.playItemChanged(_:)),
+      name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification,
+      object: player
+    )
+    player.beginGeneratingPlaybackNotifications()
+  }
+  
+  func playItemChanged(notify: NSNotification) {
+    debugPrint(notify)
+    
+    self.sendEventWithName("onend", body: "fooooo")
   }
   
   @objc func playSong(persistentID: String) {
-    let songsQuery: MPMediaQuery = MPMediaQuery.songsQuery()
-
-    // TODO: js側とソートの順が違うので表示がおかしく見える
-    player.setQueueWithQuery(songsQuery)
-    player.nowPlayingItem = _findSongByPersistentId(persistentID)
-
+    let songQuery = MPMediaQuery()
+    songQuery.addFilterPredicate(MPMediaPropertyPredicate(
+      value: persistentID,
+      forProperty: MPMediaItemPropertyPersistentID,
+      comparisonType: MPMediaPredicateComparison.EqualTo
+    ))
+    player.setQueueWithQuery(songQuery)
+    player.nowPlayingItem = songQuery.items![0]
     player.play()
   }
   
@@ -83,19 +96,4 @@ func _formatTimeString(d: Double) -> String {
   let h: Int = Int((d - Double(m) - Double(s)) / 3600 % 3600)
   let str = String(format: "%02d:%02d:%02d", h, m, s)
   return str
-}
-
-func _findSongByPersistentId(persistentID: String) -> MPMediaItem? {
-  let songQuery = MPMediaQuery()
-  songQuery.addFilterPredicate(MPMediaPropertyPredicate(
-    value: persistentID,
-    forProperty: MPMediaItemPropertyPersistentID,
-    comparisonType: MPMediaPredicateComparison.EqualTo
-  ))
-  
-  var song: MPMediaItem?
-  if let items = songQuery.items where items.count > 0 {
-    song = items[0]
-  }
-  return song
 }
