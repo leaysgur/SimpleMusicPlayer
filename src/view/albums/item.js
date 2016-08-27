@@ -82,7 +82,6 @@ class AlbumItem extends React.Component {
         renderRow={ (rowData: Song) => {
           return (
             <TouchableOpacity onPress={() => {
-              console.log(rowData.persistentID, rowData.albumPersistentID);
               onPressRow(rowData.persistentID, rowData.albumPersistentID);
             }}>
               <View style={styles.list_row}>
