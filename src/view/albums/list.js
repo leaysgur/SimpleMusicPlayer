@@ -16,6 +16,7 @@ class AlbumList extends React.Component {
   props: {
     navigator: Object;
     albums: Albums;
+    onPressRow: () => {};
   };
 
   render() {
@@ -44,11 +45,17 @@ class AlbumList extends React.Component {
   }
 
   _pressRow(album: Album) {
-    this.props.navigator.push({
+    const {
+      navigator,
+      onPressRow,
+    } = this.props;
+
+    navigator.push({
       component: AlbumItem,
       title: album.title,
       passProps: {
-        album: album,
+        album,
+        onPressRow,
       }
     });
   }

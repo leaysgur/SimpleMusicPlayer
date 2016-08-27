@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 class AlbumItem extends React.Component {
   props: {
     album: Album;
+    onPressRow: () => {};
   };
 
   render() {
@@ -60,6 +61,10 @@ class AlbumItem extends React.Component {
       artwork,
       songs,
     } = this.props.album;
+    const {
+      onPressRow,
+    } = this.props;
+
     return (
       <ListView
         dataSource={items2DataSource(songs)}
@@ -76,7 +81,10 @@ class AlbumItem extends React.Component {
         } }
         renderRow={ (rowData: Song) => {
           return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+              console.log(rowData.persistentID, rowData.albumPersistentID);
+              onPressRow(rowData.persistentID, rowData.albumPersistentID);
+            }}>
               <View style={styles.list_row}>
                 <Text style={styles.list_row_trackNo}>{rowData.trackNo}</Text>
                 <Text style={styles.list_row_title}>{rowData.title}</Text>

@@ -14,14 +14,17 @@ const styles = StyleSheet.create({
 
 const ArtistsView = ({
   artists,
+  onPressRow,
 }: {
   artists: Artists;
+  onPressRow: () => {};
 }) => {
   const route = {
     component: ArtistList,
     title: 'すべてのアーティスト',
     passProps: {
-      artists: artists,
+      artists,
+      onPressRow,
     }
   };
 

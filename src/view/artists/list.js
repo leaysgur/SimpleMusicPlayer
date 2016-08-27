@@ -16,6 +16,7 @@ class ArtistList extends React.Component {
   props: {
     navigator: Object;
     artists: Artists;
+    onPressRow: () => {};
   };
 
   render() {
@@ -44,11 +45,17 @@ class ArtistList extends React.Component {
   }
 
   _pressRow(artist: Artist) {
-    this.props.navigator.push({
+    const {
+      navigator,
+      onPressRow,
+    } = this.props;
+
+    navigator.push({
       component: AlbumList,
       title: artist.name,
       passProps: {
         albums: artist.albums,
+        onPressRow,
       }
     });
   }

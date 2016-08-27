@@ -14,14 +14,17 @@ const styles = StyleSheet.create({
 
 const AlbumsView = ({
   albums,
+  onPressRow,
 }: {
   albums: Albums;
+  onPressRow: () => {};
 }) => {
   const route = {
     component: AlbumList,
     title: 'すべてのアルバム',
     passProps: {
-      albums: albums,
+      albums,
+      onPressRow,
     }
   };
 

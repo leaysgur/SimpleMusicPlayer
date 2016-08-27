@@ -58,14 +58,20 @@ class App extends React.Component {
           selected={store.selectedTab$ === TABS.ARTIST}
           onPress={ () => { store.selectedTab$ = TABS.ARTIST; } }
         >
-          <ArtistsView artists={artists} />
+          <ArtistsView
+            artists={artists}
+            onPressRow={playAlbumSong}
+          />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アルバム"
           selected={store.selectedTab$ === TABS.ALBUM}
           onPress={ () => { store.selectedTab$ = TABS.ALBUM; } }
         >
-          <AlbumsView albums={albums} />
+          <AlbumsView
+            albums={albums}
+            onPressRow={playAlbumSong}
+          />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="再生中"
