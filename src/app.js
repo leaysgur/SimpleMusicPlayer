@@ -20,6 +20,7 @@ class App extends React.Component {
   props: {
     store: AppState;
     model: Object;
+    action: Object;
   };
 
   render() {
@@ -31,6 +32,10 @@ class App extends React.Component {
       artists,
       albums,
     } = this.props.model;
+    const {
+      playSong,
+      playAlbumSong,
+    } = this.props.action;
 
     return (
       <TabBarIOS
@@ -43,7 +48,10 @@ class App extends React.Component {
           selected={store.selectedTab$ === TABS.SONGS}
           onPress={ () => { store.selectedTab$ = TABS.SONGS; } }
         >
-          <SongsView songs={songs} />
+          <SongsView
+            songs={songs}
+            onPressRow={playSong}
+          />
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アーティスト"

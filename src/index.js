@@ -10,11 +10,22 @@ import App from './app';
 import AppStore from './store/app';
 import MediaModel from './model/media';
 
+const { MediaBridge, } = NativeModules;
+
+const Action = {
+  playSong: (persistentID) => {
+    MediaBridge.playSong(persistentID);
+  },
+  playAlbumSong: (persistentID, albumPersistentID) => {
+    MediaBridge.playAlbumSong(persistentID, albumPersistentID);
+  }
+};
+
 class Bootstrap extends React.Component {
 
   componentDidMount() {
     const that = this;
-    NativeModules.MediaBridge.fetch().then((res) => {
+    MediaBridge.fetch().then((res) => {
       MediaModel.init(res);
       that.forceUpdate();
     });
@@ -29,6 +40,7 @@ class Bootstrap extends React.Component {
       <App
         store={AppStore}
         model={MediaModel}
+        action={Action}
       />
     );
   }
