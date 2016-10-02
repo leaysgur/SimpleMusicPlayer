@@ -129,6 +129,7 @@ import MediaPlayer
     
     return _nowPlayingQuery.items![0]
   }
+  
 }
 
 

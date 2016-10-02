@@ -1,7 +1,5 @@
 import {
-  autorun,
   observable,
-  // computed,
   asStructure,
 } from 'mobx';
 import {
@@ -21,16 +19,6 @@ class AppStore {
 
   @observable palyBackMode = 1;
 
-  constructor() {
-    autorun(() => {
-      console.log('autorun');
-      const o = Object.assign({}, this.nowPlaying);
-      delete o.artwork;
-      console.log(o);
-      console.log('/autorun');
-    });
-  }
-
   updateNowPlaying({
     title,
     artist,
@@ -38,6 +26,7 @@ class AppStore {
     artwork,
     albumTitle,
   }) {
+    // 直接つっこまないのはもっといろいろ付いてきてるから
     this.nowPlaying = {
       title,
       artist,

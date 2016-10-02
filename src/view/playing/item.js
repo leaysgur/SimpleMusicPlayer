@@ -33,13 +33,11 @@ const Item = ({
     <View
       style={styles.view}
     >
-      <Text>==============</Text>
       <Image style={styles.artwork} source={{ uri: artwork }} />
       <Text>{title}</Text>
       <Text>{albumTitle}</Text>
       <Text>{artist}</Text>
       <Text>{duration}</Text>
-      <Text>--------------</Text>
     </View>
   );
 };
