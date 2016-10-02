@@ -7,12 +7,10 @@
 
 ## TODO
 - [js] playbackコントロール
-  - play / stop
-  - prev / next
-  - volume
-  - seek
   - repeat
   - shuffle
+  - volume
+  - seek
 - [sw] 再生中の曲情報の表示
   - 再生秒数
     - jsでsetIntervalしてもいいけどやっぱりズレるのが嫌なので、Swift側から定期的にイベント
