@@ -38,8 +38,8 @@ class App extends React.Component {
       >
         <TabBarIOS.Item
           title="曲"
-          selected={store.selectedTab$ === TABS.SONGS}
-          onPress={ () => { store.selectedTab$ = TABS.SONGS; } }
+          selected={store.selectedTab === TABS.SONGS}
+          onPress={ () => { store.selectedTab = TABS.SONGS; } }
         >
           <SongsView
             songs={songs}
@@ -48,8 +48,8 @@ class App extends React.Component {
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アーティスト"
-          selected={store.selectedTab$ === TABS.ARTIST}
-          onPress={ () => { store.selectedTab$ = TABS.ARTIST; } }
+          selected={store.selectedTab === TABS.ARTIST}
+          onPress={ () => { store.selectedTab = TABS.ARTIST; } }
         >
           <ArtistsView
             artists={artists}
@@ -58,8 +58,8 @@ class App extends React.Component {
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="アルバム"
-          selected={store.selectedTab$ === TABS.ALBUM}
-          onPress={ () => { store.selectedTab$ = TABS.ALBUM; } }
+          selected={store.selectedTab === TABS.ALBUM}
+          onPress={ () => { store.selectedTab = TABS.ALBUM; } }
         >
           <AlbumsView
             albums={albums}
@@ -68,8 +68,8 @@ class App extends React.Component {
         </TabBarIOS.Item>
         <TabBarIOS.Item
           title="再生中"
-          selected={store.selectedTab$ === TABS.PLAYING}
-          onPress={ () => { store.selectedTab$ = TABS.PLAYING; } }
+          selected={store.selectedTab === TABS.PLAYING}
+          onPress={ () => { store.selectedTab = TABS.PLAYING; } }
         >
           <PlayingView
             nowPlaying={store.nowPlaying}

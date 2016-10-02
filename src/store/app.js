@@ -7,7 +7,7 @@ import {
 } from '../const';
 
 class AppStore {
-  @observable selectedTab$ = TABS.PLAYING;
+  @observable selectedTab = TABS.PLAYING;
 
   @observable nowPlaying = asStructure({
     title:      '',
@@ -16,8 +16,6 @@ class AppStore {
     artwork:    '',
     albumTitle: '',
   });
-
-  @observable palyBackMode = 1;
 
   updateNowPlaying({
     title,
