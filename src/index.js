@@ -13,10 +13,12 @@ const { MediaBridge, } = NativeModules;
 
 const Action = {
   playSong: (persistentID) => {
+    console.log('playSong', persistentID);
     MediaBridge.playSong(persistentID);
   },
 
   playAlbumSong: (persistentID, albumPersistentID) => {
+    console.log('playAlbumSong', persistentID, albumPersistentID);
     MediaBridge.playAlbumSong(persistentID, albumPersistentID);
   },
 };
