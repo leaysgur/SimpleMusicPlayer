@@ -10,11 +10,11 @@ class AppStore {
   @observable selectedTab = TABS.ALBUM;
 
   @observable nowPlaying = asStructure({
-    title:      '',
-    artist:     '',
-    duration:   '',
-    artwork:    '',
-    albumTitle: '',
+    title:      '曲を選んでね',
+    artist:     '-',
+    duration:   '00:00:00',
+    artwork:    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D',
+    albumTitle: '-',
   });
 
   updateNowPlaying({
