@@ -9,44 +9,45 @@ import {
 import App from './app';
 import AppStore from './store/app';
 import MediaModel from './model/media';
+const { MediaBridge } = NativeModules;
 
-const {
-  MediaBridge,
-} = NativeModules;
-
-const Action = {
-  playSong: (persistentID) => {
-    MediaBridge.playSong(persistentID);
-    AppStore.updatePlayingState('play');
-  },
-
-  playAlbumSong: (persistentID, albumPersistentID) => {
-    MediaBridge.playAlbumSong(persistentID, albumPersistentID);
-    AppStore.updatePlayingState('play');
-  },
-
-  togglePlay: () => {
-    MediaBridge.togglePlay().then((state) => {
-      AppStore.updatePlayingState(state);
-    });
-  },
-
-  skipNext: () => {
-    MediaBridge.skipNext();
-  },
-
-  skipPrev: () => {
-    MediaBridge.skipPrev();
-  },
-
-  changeRepeat: () => {
-    MediaBridge.changeRepeat().then((mode) => {
-      AppStore.updateRepeatMode(mode);
-    });
-  },
-};
 
 class Bootstrap extends React.Component {
+  constructor() {
+    super();
+
+    this.action = {
+      playSong: (persistentID) => {
+        MediaBridge.playSong(persistentID);
+        AppStore.updatePlayingState('play');
+      },
+
+      playAlbumSong: (persistentID, albumPersistentID) => {
+        MediaBridge.playAlbumSong(persistentID, albumPersistentID);
+        AppStore.updatePlayingState('play');
+      },
+
+      togglePlay: () => {
+        MediaBridge.togglePlay().then((state) => {
+          AppStore.updatePlayingState(state);
+        });
+      },
+
+      skipNext: () => {
+        MediaBridge.skipNext();
+      },
+
+      skipPrev: () => {
+        MediaBridge.skipPrev();
+      },
+
+      changeRepeat: () => {
+        MediaBridge.changeRepeat().then((mode) => {
+          AppStore.updateRepeatMode(mode);
+        });
+      },
+    };
+  }
 
   render() {
     if (MediaModel.isFetching) {
@@ -57,7 +58,7 @@ class Bootstrap extends React.Component {
       <App
         store={AppStore}
         model={MediaModel}
-        action={Action}
+        action={this.action}
       />
     );
   }
@@ -76,13 +77,8 @@ class Bootstrap extends React.Component {
 
       that.forceUpdate();
     });
-
-    // rAF();
-    // function rAF() {
-    //   MediaBridge.getCurrentPlaybackTime().then((time) => { console.log(time); });
-    //   requestAnimationFrame(rAF);
-    // }
   }
+
 
 }
 
