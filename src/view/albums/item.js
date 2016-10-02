@@ -96,7 +96,7 @@ class AlbumItem extends React.Component {
 }
 
 AlbumItem.propTypes = {
-  album:      React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  album:      React.PropTypes.object.isRequired,
   onPressRow: React.PropTypes.func.isRequired,
 };
 
