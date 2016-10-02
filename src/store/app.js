@@ -1,14 +1,13 @@
-// @flow
 import {
   observable,
-  computed,
+  // computed,
 } from 'mobx';
 import {
   TABS,
 } from '../const';
 
 class AppStore {
-  @observable selectedTab$: string = TABS.PLAYING;
+  @observable selectedTab$ = TABS.PLAYING;
 }
 
 export default (new AppStore());

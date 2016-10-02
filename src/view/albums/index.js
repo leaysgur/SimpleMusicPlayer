@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   StyleSheet,
@@ -15,9 +14,6 @@ const styles = StyleSheet.create({
 const AlbumsView = ({
   albums,
   onPressRow,
-}: {
-  albums: Albums;
-  onPressRow: () => {};
 }) => {
   const route = {
     component: AlbumList,
@@ -34,6 +30,10 @@ const AlbumsView = ({
       style={styles.view}
     />
   );
+};
+AlbumsView.propTypes = {
+  albums:     React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  onPressRow: React.PropTypes.func.isRequired,
 };
 
 export default AlbumsView;

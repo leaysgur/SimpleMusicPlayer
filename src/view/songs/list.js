@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   ListView,
@@ -15,14 +14,11 @@ import {
 const SongList = ({
   songs,
   onPressRow,
-}: {
-  songs: Songs;
-  onPressRow: () => {};
 }) => {
   return (
     <ListView
       dataSource={items2DataSource(songs)}
-      renderRow={(rowData: Song) => {
+      renderRow={(rowData) => {
         return (
           <TouchableOpacity onPress={ () => {
             onPressRow(rowData.persistentID);
@@ -36,11 +32,15 @@ const SongList = ({
           </TouchableOpacity>
         );
       } }
-      renderSeparator={(sectionID: number, rowID: number) => {
-        return <Separator key={`${sectionID}-${rowID}`} />
+      renderSeparator={(sectionID, rowID) => {
+        return <Separator key={`${sectionID}-${rowID}`} />;
       }}
     />
   );
+};
+SongList.propTypes = {
+  songs:      React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  onPressRow: React.PropTypes.func.isRequired,
 };
 
 export default SongList;

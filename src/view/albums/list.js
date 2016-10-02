@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   ListView,
@@ -13,17 +12,12 @@ import {
 import AlbumItem from './item';
 
 class AlbumList extends React.Component {
-  props: {
-    navigator: Object;
-    albums: Albums;
-    onPressRow: () => {};
-  };
 
   render() {
     return (
       <ListView
         dataSource={items2DataSource(this.props.albums)}
-        renderRow={ (rowData: Album) => {
+        renderRow={ (rowData) => {
           return (
             <TouchableOpacity
               onPress={ () => { this._pressRow(rowData); } }
@@ -38,13 +32,13 @@ class AlbumList extends React.Component {
           );
         } }
         renderSeparator={ (sectionID: number, rowID: number) => {
-          return <Separator key={`${sectionID}-${rowID}`} />
+          return <Separator key={`${sectionID}-${rowID}`} />;
         } }
       />
-    )
+    );
   }
 
-  _pressRow(album: Album) {
+  _pressRow(album) {
     const {
       navigator,
       onPressRow,
@@ -60,5 +54,10 @@ class AlbumList extends React.Component {
     });
   }
 }
+AlbumList.propTypes = {
+  navigator:  React.PropTypes.object.isRequired,
+  albums:     React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  onPressRow: React.PropTypes.func.isRequired,
+};
 
 export default AlbumList;

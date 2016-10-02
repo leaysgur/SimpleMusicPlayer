@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   StyleSheet,
@@ -55,10 +54,7 @@ export const Separator = () => {
 
 export const ThumbListItem = ({
   imgUri,
-  // $FlowFixMe
   children,
-}: {
-  imgUri: string;
 }) => {
   return (
     <View style={styles.tli}>
@@ -69,9 +65,13 @@ export const ThumbListItem = ({
     </View>
   );
 };
+ThumbListItem.propTypes = {
+  imgUri:   React.PropTypes.string.isRequired,
+  children: React.PropTypes.node,
+};
 
-export const items2DataSource = (items: [Object]) => {
+export const items2DataSource = (items) => {
   return (new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2
-  })).cloneWithRows(items)
+  })).cloneWithRows(items);
 };

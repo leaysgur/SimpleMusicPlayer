@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   TabBarIOS,
@@ -14,14 +13,8 @@ import ArtistsView from './view/artists';
 import AlbumsView  from './view/albums';
 import PlayingView from './view/playing';
 
-// $FlowFixMe
 @observer
 class App extends React.Component {
-  props: {
-    store: AppState;
-    model: Object;
-    action: Object;
-  };
 
   render() {
     const {
@@ -84,5 +77,11 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  store:  React.PropTypes.object,
+  action: React.PropTypes.object,
+  model:  React.PropTypes.object,
+};
 
 export default App;

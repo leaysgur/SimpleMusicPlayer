@@ -1,21 +1,16 @@
-// @flow
 class Media {
-  isFetching: boolean = true;
-  songs: Songs = [];
-  artists: Artists = [];
-  albums: Albums = [];
+  isFetching = true;
+  songs      = [];
+  artists    = [];
+  albums     = [];
 
   init({
     songs,
     albums,
     albumMap,
     songMap
-  }: {
-    songs:    [string];
-    albums:   [Object];
-    albumMap: Object;
-    songMap:  Object;
   }) {
+
     let artistMap = {};
 
     this.isFetching = false;

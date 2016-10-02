@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   NativeModules,
@@ -16,20 +15,13 @@ const Action = {
   playSong: (persistentID) => {
     MediaBridge.playSong(persistentID);
   },
+
   playAlbumSong: (persistentID, albumPersistentID) => {
     MediaBridge.playAlbumSong(persistentID, albumPersistentID);
-  }
+  },
 };
 
 class Bootstrap extends React.Component {
-
-  componentDidMount() {
-    const that = this;
-    MediaBridge.fetch().then((res) => {
-      MediaModel.init(res);
-      that.forceUpdate();
-    });
-  }
 
   render() {
     if (MediaModel.isFetching) {
@@ -44,6 +36,17 @@ class Bootstrap extends React.Component {
       />
     );
   }
+
+  componentDidMount() {
+    const that = this;
+
+    MediaBridge.fetch()
+      .then((res) => {
+        MediaModel.init(res);
+        that.forceUpdate();
+      });
+  }
+
 }
 
 export default Bootstrap;

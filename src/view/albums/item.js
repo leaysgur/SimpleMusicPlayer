@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   StyleSheet,
@@ -49,10 +48,6 @@ const styles = StyleSheet.create({
 });
 
 class AlbumItem extends React.Component {
-  props: {
-    album: Album;
-    onPressRow: () => {};
-  };
 
   render() {
     const {
@@ -79,7 +74,7 @@ class AlbumItem extends React.Component {
             </View>
           );
         } }
-        renderRow={ (rowData: Song) => {
+        renderRow={ (rowData) => {
           return (
             <TouchableOpacity onPress={() => {
               onPressRow(rowData.persistentID, rowData.albumPersistentID);
@@ -93,11 +88,16 @@ class AlbumItem extends React.Component {
           );
         } }
         renderSeparator={ (sectionID: number, rowID: number) => {
-          return <Separator key={`${sectionID}-${rowID}`} />
+          return <Separator key={`${sectionID}-${rowID}`} />;
         } }
       />
     );
   }
 }
+
+AlbumItem.propTypes = {
+  album:      React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  onPressRow: React.PropTypes.func.isRequired,
+};
 
 export default AlbumItem;

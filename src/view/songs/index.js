@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   StyleSheet,
@@ -15,9 +14,6 @@ const styles = StyleSheet.create({
 const SongsView = ({
   songs,
   onPressRow,
-}: {
-  songs: Songs;
-  onPressRow: () => {};
 }) => {
   const route = {
     component: SongList,
@@ -34,6 +30,10 @@ const SongsView = ({
       style={styles.view}
     />
   );
+};
+SongsView.propTypes = {
+  songs:      React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  onPressRow: React.PropTypes.func.isRequired,
 };
 
 export default SongsView;

@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import {
   ListView,
@@ -13,17 +12,12 @@ import {
 import AlbumList from '../albums/list';
 
 class ArtistList extends React.Component {
-  props: {
-    navigator: Object;
-    artists: Artists;
-    onPressRow: () => {};
-  };
 
   render() {
     return (
       <ListView
         dataSource={items2DataSource(this.props.artists)}
-        renderRow={ (rowData: Artist) => {
+        renderRow={ (rowData) => {
           return (
             <TouchableOpacity
               onPress={ () => { this._pressRow(rowData); } }
@@ -38,13 +32,13 @@ class ArtistList extends React.Component {
           );
         } }
         renderSeparator={ (sectionID: number, rowID: number) => {
-          return <Separator key={`${sectionID}-${rowID}`} />
+          return <Separator key={`${sectionID}-${rowID}`} />;
         } }
       />
-    )
+    );
   }
 
-  _pressRow(artist: Artist) {
+  _pressRow(artist) {
     const {
       navigator,
       onPressRow,
@@ -60,5 +54,10 @@ class ArtistList extends React.Component {
     });
   }
 }
+ArtistList.propTypes = {
+  navigator:  React.PropTypes.object.isRequired,
+  artists:    React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  onPressRow: React.PropTypes.func.isRequired,
+};
 
 export default ArtistList;
