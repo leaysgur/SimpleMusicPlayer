@@ -17,14 +17,18 @@ const {
 const Action = {
   playSong: (persistentID) => {
     MediaBridge.playSong(persistentID);
+    AppStore.updatePlayingState('play');
   },
 
   playAlbumSong: (persistentID, albumPersistentID) => {
     MediaBridge.playAlbumSong(persistentID, albumPersistentID);
+    AppStore.updatePlayingState('play');
   },
 
   togglePlay: () => {
-    MediaBridge.togglePlay();
+    MediaBridge.togglePlay().then((state) => {
+      AppStore.updatePlayingState(state);
+    });
   },
 
   skipNext: () => {
@@ -72,6 +76,12 @@ class Bootstrap extends React.Component {
 
       that.forceUpdate();
     });
+
+    // rAF();
+    // function rAF() {
+    //   MediaBridge.getCurrentPlaybackTime().then((time) => { console.log(time); });
+    //   requestAnimationFrame(rAF);
+    // }
   }
 
 }

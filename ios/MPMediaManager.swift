@@ -121,11 +121,13 @@ import MediaPlayer
     player.play()
   }
   
-  @objc func togglePlay() {
+  @objc func togglePlay(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     if (player.playbackState == MPMusicPlaybackState.Playing) {
       player.pause()
+      resolve("pause")
     } else {
       player.play()
+      resolve("play")
     }
   }
   
@@ -159,6 +161,13 @@ import MediaPlayer
     default:
       resolve("default")
     }
+  }
+  
+  @objc func getCurrentPlaybackTime(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+    if (player.nowPlayingItem != nil) {
+      return resolve(player.currentPlaybackTime)
+    }
+    return resolve(0)
   }
 
   func _getNowPlayingItem(persistentID: String) -> MPMediaItem {

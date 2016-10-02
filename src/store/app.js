@@ -17,10 +17,15 @@ class AppStore {
     albumTitle: '-',
   });
 
+  @observable playingState = 'pause';
   @observable repeatMode = 'none';
 
   updateRepeatMode(mode) {
     this.repeatMode = mode;
+  }
+
+  updatePlayingState(state) {
+    this.playingState = state;
   }
 
   updateNowPlaying({

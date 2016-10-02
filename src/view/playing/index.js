@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
 const PlayingView = ({
   nowPlaying,
   repeatMode,
+  playingState,
   controllerAction,
 }) => {
   return (
@@ -30,6 +31,7 @@ const PlayingView = ({
       <Controller
         duration={nowPlaying.duration}
         repeatMode={repeatMode}
+        playingState={playingState}
         {...controllerAction}
       />
     </View>
@@ -38,6 +40,7 @@ const PlayingView = ({
 PlayingView.propTypes = {
   nowPlaying:       React.PropTypes.object.isRequired,
   repeatMode:       React.PropTypes.string.isRequired,
+  playingState:     React.PropTypes.string.isRequired,
   controllerAction: React.PropTypes.object.isRequired,
 };
 

@@ -71,6 +71,7 @@ class App extends React.Component {
           <PlayingView
             nowPlaying={store.nowPlaying}
             repeatMode={store.repeatMode}
+            playingState={store.playingState}
             controllerAction={{
               togglePlay:   action.togglePlay,
               skipPrev:     action.skipPrev,
