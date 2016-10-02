@@ -34,8 +34,10 @@ const styles = StyleSheet.create({
 
 const Controller = ({
   duration,
-  startPause,
-  prev, next,
+  togglePlay,
+  skipPrev, skipNext,
+  toggleShuffle,
+  changeRepeat,
 }) => {
   return (
     <View style={styles.view}>
@@ -44,13 +46,22 @@ const Controller = ({
       </View>
 
       <View style={styles.control}>
-        <TouchableOpacity onPress={prev}>
+        <TouchableOpacity onPress={toggleShuffle}>
+          <Text style={styles.control_text}>ランダム</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={changeRepeat}>
+          <Text style={styles.control_text}>リピート</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.control}>
+        <TouchableOpacity onPress={skipPrev}>
           <Text style={styles.control_text}>前へ</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={startPause}>
+        <TouchableOpacity onPress={togglePlay}>
           <Text style={styles.control_text}>再生・一時停止</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={next}>
+        <TouchableOpacity onPress={skipNext}>
           <Text style={styles.control_text}>次へ</Text>
         </TouchableOpacity>
       </View>
@@ -58,10 +69,12 @@ const Controller = ({
   );
 };
 Controller.propTypes = {
-  duration:   React.PropTypes.string.isRequired,
-  startPause: React.PropTypes.func.isRequired,
-  prev:       React.PropTypes.func.isRequired,
-  next:       React.PropTypes.func.isRequired,
+  duration:      React.PropTypes.string.isRequired,
+  togglePlay:    React.PropTypes.func.isRequired,
+  skipPrev:      React.PropTypes.func.isRequired,
+  skipNext:      React.PropTypes.func.isRequired,
+  toggleShuffle: React.PropTypes.func.isRequired,
+  changeRepeat:  React.PropTypes.func.isRequired,
 };
 
 export default observer(Controller);

@@ -118,7 +118,7 @@ import MediaPlayer
     player.play()
   }
   
-  @objc func startPause() {
+  @objc func togglePlay() {
     if (player.playbackState == MPMusicPlaybackState.Playing) {
       player.pause()
     } else {
@@ -126,7 +126,7 @@ import MediaPlayer
     }
   }
   
-  @objc func prev() {
+  @objc func skipPrev() {
     if (player.currentPlaybackTime > 1) {
       player.skipToBeginning()
     } else {
@@ -134,8 +134,16 @@ import MediaPlayer
     }
   }
   
-  @objc func next() {
+  @objc func skipNext() {
     player.skipToNextItem()
+  }
+  
+  @objc func toggleShuffle() {
+    debugPrint("toggleShuffle")
+  }
+  
+  @objc func changeRepeat() {
+    debugPrint("changeRepeat")
   }
 
   func _getNowPlayingItem(persistentID: String) -> MPMediaItem {

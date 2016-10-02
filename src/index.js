@@ -23,16 +23,24 @@ const Action = {
     MediaBridge.playAlbumSong(persistentID, albumPersistentID);
   },
 
-  startPause: () => {
-    MediaBridge.startPause();
+  togglePlay: () => {
+    MediaBridge.togglePlay();
   },
 
-  next: () => {
-    MediaBridge.next();
+  skipNext: () => {
+    MediaBridge.skipNext();
   },
 
-  prev: () => {
-    MediaBridge.prev();
+  skipPrev: () => {
+    MediaBridge.skipPrev();
+  },
+
+  toggleShuffle: () => {
+    MediaBridge.toggleShuffle();
+  },
+
+  changeRepeat: () => {
+    MediaBridge.changeRepeat();
   },
 };
 
