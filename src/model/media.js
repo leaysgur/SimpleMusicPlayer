@@ -3,6 +3,7 @@ class Media {
   songs      = [];
   artists    = [];
   albums     = [];
+  songMap    = {};
 
   init({
     songs,
@@ -11,6 +12,7 @@ class Media {
     songMap
   }) {
 
+    this.songMap  = songMap;
     let artistMap = {};
 
     this.isFetching = false;
@@ -57,6 +59,10 @@ class Media {
         albums:  albums
       };
     }).sort((a, b) => { return a.name > b.name ? 1 : -1; });
+  }
+
+  getItem({ persistentID }) {
+    return this.songMap[persistentID];
   }
 }
 

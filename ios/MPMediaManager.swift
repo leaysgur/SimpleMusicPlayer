@@ -1,9 +1,36 @@
 import MediaPlayer
 
-@objc(MediaBridge) class MediaBridge: NSObject {
+@objc(MediaBridge) class MediaBridge: RCTEventEmitter {
   let player = MPMusicPlayerController.systemMusicPlayer()
   var _nowPlayingQuery = MPMediaQuery()
 
+  override func supportedEvents() -> [String]! {
+    return ["onPlayItemChanged"]
+  }
+  
+  override init() {
+    super.init()
+    
+    // TODO: MPMusicPlayerControllerPlaybackStateDidChangeNotification も
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(MediaBridge.playItemChanged(_:)),
+      name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification,
+      object: player
+    )
+    player.beginGeneratingPlaybackNotifications()
+  }
+
+  func playItemChanged(notify:NSNotificationCenter) {
+    if let mediaItem = player.nowPlayingItem {
+      var nowPlaying = [String: String]()
+      nowPlaying["persistentID"]      = String(mediaItem.persistentID)
+      nowPlaying["albumPersistentID"] = String(mediaItem.albumPersistentID)
+      self.sendEventWithName("onPlayItemChanged", body: nowPlaying)
+    }
+  }
+  
+  
   @objc func fetch(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     // TODO: なぜか効いてない・・？
     let noCloudPre = MPMediaPropertyPredicate(
@@ -18,7 +45,7 @@ import MediaPlayer
     var albumMap = [String: AnyObject]()
     if let albumCollection: [MPMediaItemCollection] = albumsQuery.collections {
       for album in albumCollection {
-        let albumItem = album.representativeItem!;
+        let albumItem = album.representativeItem!
         guard let artwork = albumItem.artwork else {
           continue
         }

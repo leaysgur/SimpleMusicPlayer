@@ -4,6 +4,9 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import {
+  observer,
+} from 'mobx-react/native';
 
 const styles = StyleSheet.create({
   view: {
@@ -15,29 +18,31 @@ const styles = StyleSheet.create({
 });
 
 const Player = ({
-  songTitle,
+  title,
   albumTitle,
   artist,
-  currentTime,
+  duration,
+  // currentTime,
 }) => {
   return (
     <View
       style={styles.view}
     >
       <Text>==============</Text>
-      <Text>{songTitle}</Text>
+      <Text>{title}</Text>
       <Text>{albumTitle}</Text>
       <Text>{artist}</Text>
-      <Text>{currentTime}</Text>
+      <Text>{duration}</Text>
       <Text>--------------</Text>
     </View>
   );
 };
 Player.propTypes = {
-  songTitle:   React.PropTypes.string,
-  albumTitle:  React.PropTypes.string,
-  artist:      React.PropTypes.string,
-  currentTime: React.PropTypes.number,
+  title:      React.PropTypes.string,
+  albumTitle: React.PropTypes.string,
+  artist:     React.PropTypes.string,
+  duration:   React.PropTypes.string,
+  // currentTime: React.PropTypes.number,
 };
 
-export default Player;
+export default observer(Player);

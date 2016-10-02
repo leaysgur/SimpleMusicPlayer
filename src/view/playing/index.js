@@ -3,6 +3,9 @@ import {
   StyleSheet,
   NavigatorIOS,
 } from 'react-native';
+import {
+  observer,
+} from 'mobx-react/native';
 
 import Player from './player';
 
@@ -17,7 +20,7 @@ const PlayingView = ({
 }) => {
   const route = {
     component: Player,
-    title: '再生中',
+    title: `再生中${nowPlaying.title}`,
     passProps: {
       ...nowPlaying,
     }
@@ -34,4 +37,4 @@ PlayingView.propTypes = {
   nowPlaying: React.PropTypes.object.isRequired,
 };
 
-export default PlayingView;
+export default observer(PlayingView);
