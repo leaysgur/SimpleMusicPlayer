@@ -22,6 +22,7 @@ class Media {
       song.persistentID = id;
       song.artwork = albumMap[song.albumPersistentID].artwork;
       song.albumTitle = albumMap[song.albumPersistentID].title;
+      song.duration = _toDispDuration(song._duration);
       return song;
     });
 
@@ -64,6 +65,25 @@ class Media {
   getItem({ persistentID }) {
     return this.songMap[persistentID];
   }
+}
+
+function _toDispDuration(seconds) {
+  seconds = Math.floor(seconds);
+
+  let hours = Math.floor(seconds / 3600);
+  seconds -= hours*3600;
+
+  let minutes = Math.floor(seconds / 60);
+  seconds -= minutes*60;
+
+  if (hours) {
+    if (hours < 10) { hours = '0' + hours; }
+    return `${hours}:${minutes}:${seconds}`;
+  }
+
+  if (minutes < 10) { minutes = '0' + minutes; }
+  if (seconds < 10) { seconds = '0' + seconds; }
+  return `${minutes}:${seconds}`;
 }
 
 export default (new Media());

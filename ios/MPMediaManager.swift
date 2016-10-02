@@ -85,7 +85,8 @@ import MediaPlayer
         songMap[persistentID] = [
           "title":             songItem.title  ?? "No title",
           "artist":            songItem.artist ?? "Various Artists",
-          "duration":          __formatTimeString(songItem.playbackDuration),
+          "_duration":         songItem.playbackDuration,
+          "duration":          "", // jsでいれる
           "trackNo":           songItem.albumTrackNumber,
           "albumPersistentID": String(songItem.albumPersistentID)
         ]
@@ -141,6 +142,7 @@ import MediaPlayer
   }
   
   @objc func changeRepeat(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+    debugPrint(player.currentPlaybackTime, player.nowPlayingItem?.playbackDuration)
     switch (player.repeatMode) {
     case MPMusicRepeatMode.None:
       player.repeatMode = MPMusicRepeatMode.One
@@ -180,12 +182,3 @@ func __image2base64String(image: UIImage) -> String {
   
   return "data:image/png;base64," + encodeString
 }
-
-func __formatTimeString(d: Double) -> String {
-  let s: Int = Int(d % 60)
-  let m: Int = Int((d - Double(s)) / 60 % 60)
-  let h: Int = Int((d - Double(m) - Double(s)) / 3600 % 3600)
-  
-  return String(format: "%02d:%02d:%02d", h, m, s)
-}
-
