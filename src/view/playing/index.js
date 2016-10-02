@@ -1,24 +1,37 @@
 import React from 'react';
 import {
   StyleSheet,
-  View,
-  Text,
+  NavigatorIOS,
 } from 'react-native';
+
+import Player from './player';
 
 const styles = StyleSheet.create({
   view: {
-    flex: 1
+    flex: 1,
   }
 });
 
-class PlayingView extends React.Component {
-  render() {
-    return (
-      <View style={styles.view}>
-        <Text>PLAYING</Text>
-      </View>
-    );
-  }
-}
+const PlayingView = ({
+  nowPlaying,
+}) => {
+  const route = {
+    component: Player,
+    title: '再生中',
+    passProps: {
+      ...nowPlaying,
+    }
+  };
+
+  return (
+    <NavigatorIOS
+      initialRoute={route}
+      style={styles.view}
+    />
+  );
+};
+PlayingView.propTypes = {
+  nowPlaying: React.PropTypes.object.isRequired,
+};
 
 export default PlayingView;

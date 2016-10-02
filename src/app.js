@@ -71,7 +71,9 @@ class App extends React.Component {
           selected={store.selectedTab$ === TABS.PLAYING}
           onPress={ () => { store.selectedTab$ = TABS.PLAYING; } }
         >
-          <PlayingView />
+          <PlayingView
+            nowPlaying={store.nowPlaying}
+          />
         </TabBarIOS.Item>
       </TabBarIOS>
     );
