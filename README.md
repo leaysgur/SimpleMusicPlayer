@@ -6,8 +6,6 @@
 あれを作りたい。
 
 ## TODO
-- [js] 再生中の曲情報の表示
-  - 再生秒数
 - [js] playbackコントロール
   - play / stop
   - prev / next
@@ -15,6 +13,9 @@
   - seek
   - repeat
   - shuffle
+- [sw] 再生中の曲情報の表示
+  - 再生秒数
+    - jsでsetIntervalしてもいいけどやっぱりズレるのが嫌なので、Swift側から定期的にイベント
 - [sw] cloudのアイテムを除外
 - [ot] デザインの調整
 - [ot] タブのアイコン
