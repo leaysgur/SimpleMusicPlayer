@@ -7,8 +7,6 @@
 
 ## TODO
 - [js] playbackコントロール
-  - repeat
-  - shuffle
   - volume
   - seek
 - [sw] 再生中の曲情報の表示
