@@ -13,6 +13,9 @@ import Controller from './controller';
 const styles = StyleSheet.create({
   view: {
     flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 20,
   }
 });
 

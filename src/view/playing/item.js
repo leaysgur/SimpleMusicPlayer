@@ -3,22 +3,23 @@ import {
   View,
   Text,
   Image,
+  Dimensions,
   StyleSheet,
 } from 'react-native';
 import {
   observer,
 } from 'mobx-react/native';
 
+const { width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   view: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 20,
   },
   artwork: {
-    width:  300,
-    height: 300,
+    width:  width,
+    height: width,
   }
 });
 
@@ -27,7 +28,6 @@ const Item = ({
   albumTitle,
   artist,
   artwork,
-  duration,
 }) => {
   return (
     <View
@@ -35,9 +35,8 @@ const Item = ({
     >
       <Image style={styles.artwork} source={{ uri: artwork }} />
       <Text>{title}</Text>
-      <Text>{albumTitle}</Text>
       <Text>{artist}</Text>
-      <Text>{duration}</Text>
+      <Text>{albumTitle}</Text>
     </View>
   );
 };
@@ -46,7 +45,6 @@ Item.propTypes = {
   albumTitle: React.PropTypes.string.isRequired,
   artist:     React.PropTypes.string.isRequired,
   artwork:    React.PropTypes.string.isRequired,
-  duration:   React.PropTypes.string.isRequired,
 };
 
 export default observer(Item);
