@@ -17,6 +17,12 @@ class AppStore {
     albumTitle: '-',
   });
 
+  @observable repeatMode = 'none';
+
+  updateRepeatMode(mode) {
+    this.repeatMode = mode;
+  }
+
   updateNowPlaying({
     title,
     artist,

@@ -40,7 +40,9 @@ const Action = {
   },
 
   changeRepeat: () => {
-    MediaBridge.changeRepeat();
+    MediaBridge.changeRepeat().then((mode) => {
+      AppStore.updateRepeatMode(mode);
+    });
   },
 };
 
@@ -62,17 +64,18 @@ class Bootstrap extends React.Component {
 
   componentDidMount() {
     const that = this;
-    MediaBridge.fetch()
-      .then((res) => {
-        MediaModel.init(res);
 
-        const myEv = new NativeEventEmitter(MediaBridge);
-        myEv.addListener('onPlayItemChanged', (payload) => {
-          payload && AppStore.updateNowPlaying(MediaModel.getItem(payload));
-        });
+    MediaBridge.fetchMusic()
+    .then((music) => {
+      MediaModel.init(music);
 
-        that.forceUpdate();
+      const myEv = new NativeEventEmitter(MediaBridge);
+      myEv.addListener('onPlayItemChanged', (payload) => {
+        payload && AppStore.updateNowPlaying(MediaModel.getItem(payload));
       });
+
+      that.forceUpdate();
+    });
   }
 
 }

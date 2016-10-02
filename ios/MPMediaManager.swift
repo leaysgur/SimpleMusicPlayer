@@ -11,6 +11,8 @@ import MediaPlayer
   override init() {
     super.init()
     
+    player.repeatMode = MPMusicRepeatMode.None
+    
     // TODO: MPMusicPlayerControllerPlaybackStateDidChangeNotification も
     NSNotificationCenter.defaultCenter().addObserver(
       self,
@@ -30,8 +32,7 @@ import MediaPlayer
     }
   }
   
-  
-  @objc func fetch(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+  @objc func fetchMusic(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     // TODO: なぜか効いてない・・？
     let noCloudPre = MPMediaPropertyPredicate(
       value: NSNumber(bool: false),
@@ -142,8 +143,23 @@ import MediaPlayer
     debugPrint("toggleShuffle")
   }
   
-  @objc func changeRepeat() {
-    debugPrint("changeRepeat")
+  @objc func changeRepeat(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+    switch (player.repeatMode) {
+    case MPMusicRepeatMode.None:
+      player.repeatMode = MPMusicRepeatMode.One
+      resolve("one")
+      break
+    case MPMusicRepeatMode.One:
+      player.repeatMode = MPMusicRepeatMode.All
+      resolve("all")
+      break
+    case MPMusicRepeatMode.All:
+      player.repeatMode = MPMusicRepeatMode.None
+      resolve("none")
+      break
+    default:
+      resolve("default")
+    }
   }
 
   func _getNowPlayingItem(persistentID: String) -> MPMediaItem {

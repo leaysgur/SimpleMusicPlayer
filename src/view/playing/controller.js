@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
 
 const Controller = ({
   duration,
+  repeatMode,
   togglePlay,
   skipPrev, skipNext,
   toggleShuffle,
@@ -49,7 +50,7 @@ const Controller = ({
           <Text style={styles.control_text}>ランダム</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={changeRepeat}>
-          <Text style={styles.control_text}>リピート</Text>
+          <Text style={styles.control_text}>リピート:{repeatMode}</Text>
         </TouchableOpacity>
       </View>
 
@@ -69,6 +70,7 @@ const Controller = ({
 };
 Controller.propTypes = {
   duration:      React.PropTypes.string.isRequired,
+  repeatMode:    React.PropTypes.string.isRequired,
   togglePlay:    React.PropTypes.func.isRequired,
   skipPrev:      React.PropTypes.func.isRequired,
   skipNext:      React.PropTypes.func.isRequired,
