@@ -35,8 +35,7 @@ const Item = ({
     >
       <Image style={styles.artwork} source={{ uri: artwork }} />
       <Text>{title}</Text>
-      <Text>{artist}</Text>
-      <Text>{albumTitle}</Text>
+      <Text>{artist} / {albumTitle}</Text>
     </View>
   );
 };

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 50 + 20, // TabBar + padding
+    bottom: 50 + 10, // TabBar + padding
   },
   control: {
     flex: 1,
@@ -22,12 +22,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   time: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
   },
   control_text: {
-    padding: 20,
+    padding: 10,
     fontSize: 20,
   }
 });

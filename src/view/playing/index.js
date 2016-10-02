@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  StyleSheet,
   View,
+  StyleSheet,
 } from 'react-native';
 import {
   observer,
