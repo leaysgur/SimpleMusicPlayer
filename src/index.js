@@ -35,10 +35,6 @@ const Action = {
     MediaBridge.skipPrev();
   },
 
-  toggleShuffle: () => {
-    MediaBridge.toggleShuffle();
-  },
-
   changeRepeat: () => {
     MediaBridge.changeRepeat().then((mode) => {
       AppStore.updateRepeatMode(mode);

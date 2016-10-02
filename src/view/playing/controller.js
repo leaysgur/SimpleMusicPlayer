@@ -36,7 +36,6 @@ const Controller = ({
   repeatMode,
   togglePlay,
   skipPrev, skipNext,
-  toggleShuffle,
   changeRepeat,
 }) => {
   return (
@@ -46,9 +45,6 @@ const Controller = ({
       </View>
 
       <View style={styles.control}>
-        <TouchableOpacity onPress={toggleShuffle}>
-          <Text style={styles.control_text}>ランダム</Text>
-        </TouchableOpacity>
         <TouchableOpacity onPress={changeRepeat}>
           <Text style={styles.control_text}>リピート:{repeatMode}</Text>
         </TouchableOpacity>
@@ -69,13 +65,12 @@ const Controller = ({
   );
 };
 Controller.propTypes = {
-  duration:      React.PropTypes.string.isRequired,
-  repeatMode:    React.PropTypes.string.isRequired,
-  togglePlay:    React.PropTypes.func.isRequired,
-  skipPrev:      React.PropTypes.func.isRequired,
-  skipNext:      React.PropTypes.func.isRequired,
-  toggleShuffle: React.PropTypes.func.isRequired,
-  changeRepeat:  React.PropTypes.func.isRequired,
+  duration:     React.PropTypes.string.isRequired,
+  repeatMode:   React.PropTypes.string.isRequired,
+  togglePlay:   React.PropTypes.func.isRequired,
+  skipPrev:     React.PropTypes.func.isRequired,
+  skipNext:     React.PropTypes.func.isRequired,
+  changeRepeat: React.PropTypes.func.isRequired,
 };
 
 export default observer(Controller);

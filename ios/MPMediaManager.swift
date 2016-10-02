@@ -11,6 +11,7 @@ import MediaPlayer
   override init() {
     super.init()
     
+    // 最初はNoneからはじめる
     player.repeatMode = MPMusicRepeatMode.None
     
     // TODO: MPMusicPlayerControllerPlaybackStateDidChangeNotification も
@@ -137,10 +138,6 @@ import MediaPlayer
   
   @objc func skipNext() {
     player.skipToNextItem()
-  }
-  
-  @objc func toggleShuffle() {
-    debugPrint("toggleShuffle")
   }
   
   @objc func changeRepeat(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {

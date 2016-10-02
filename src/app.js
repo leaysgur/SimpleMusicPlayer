@@ -72,11 +72,10 @@ class App extends React.Component {
             nowPlaying={store.nowPlaying}
             repeatMode={store.repeatMode}
             controllerAction={{
-              togglePlay:    action.togglePlay,
-              skipPrev:      action.skipPrev,
-              skipNext:      action.skipNext,
-              toggleShuffle: action.toggleShuffle,
-              changeRepeat:  action.changeRepeat,
+              togglePlay:   action.togglePlay,
+              skipPrev:     action.skipPrev,
+              skipNext:     action.skipNext,
+              changeRepeat: action.changeRepeat,
             }}
           />
         </TabBarIOS.Item>
