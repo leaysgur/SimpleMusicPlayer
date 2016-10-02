@@ -117,6 +117,26 @@ import MediaPlayer
     player.nowPlayingItem = self._getNowPlayingItem(persistentID)
     player.play()
   }
+  
+  @objc func startPause() {
+    if (player.playbackState == MPMusicPlaybackState.Playing) {
+      player.pause()
+    } else {
+      player.play()
+    }
+  }
+  
+  @objc func prev() {
+    if (player.currentPlaybackTime > 1) {
+      player.skipToBeginning()
+    } else {
+      player.skipToPreviousItem()
+    }
+  }
+  
+  @objc func next() {
+    player.skipToNextItem()
+  }
 
   func _getNowPlayingItem(persistentID: String) -> MPMediaItem {
     _nowPlayingQuery = MPMediaQuery()

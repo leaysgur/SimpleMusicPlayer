@@ -19,16 +19,13 @@ class App extends React.Component {
   render() {
     const {
       store,
+      action,
     } = this.props;
     const {
       songs,
       artists,
       albums,
     } = this.props.model;
-    const {
-      playSong,
-      playAlbumSong,
-    } = this.props.action;
 
     return (
       <TabBarIOS
@@ -43,7 +40,7 @@ class App extends React.Component {
         >
           <SongsView
             songs={songs}
-            onPressRow={playSong}
+            onPressRow={action.playSong}
           />
         </TabBarIOS.Item>
         <TabBarIOS.Item
@@ -53,7 +50,7 @@ class App extends React.Component {
         >
           <ArtistsView
             artists={artists}
-            onPressRow={playAlbumSong}
+            onPressRow={action.playAlbumSong}
           />
         </TabBarIOS.Item>
         <TabBarIOS.Item
@@ -63,7 +60,7 @@ class App extends React.Component {
         >
           <AlbumsView
             albums={albums}
-            onPressRow={playAlbumSong}
+            onPressRow={action.playAlbumSong}
           />
         </TabBarIOS.Item>
         <TabBarIOS.Item
@@ -73,6 +70,11 @@ class App extends React.Component {
         >
           <PlayingView
             nowPlaying={store.nowPlaying}
+            controllerAction={{
+              startPause: action.startPause,
+              prev:       action.prev,
+              next:       action.next,
+            }}
           />
         </TabBarIOS.Item>
       </TabBarIOS>

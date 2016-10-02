@@ -8,6 +8,7 @@ import {
 } from 'mobx-react/native';
 
 import Item from './item';
+import Controller from './controller';
 
 const styles = StyleSheet.create({
   view: {
@@ -17,15 +18,21 @@ const styles = StyleSheet.create({
 
 const PlayingView = ({
   nowPlaying,
+  controllerAction,
 }) => {
   return (
     <View style={styles.view}>
       <Item {...nowPlaying} />
+      <Controller
+        duration={nowPlaying.duration}
+        {...controllerAction}
+      />
     </View>
   );
 };
 PlayingView.propTypes = {
-  nowPlaying: React.PropTypes.object.isRequired,
+  nowPlaying:       React.PropTypes.object.isRequired,
+  controllerAction: React.PropTypes.object.isRequired,
 };
 
 export default observer(PlayingView);

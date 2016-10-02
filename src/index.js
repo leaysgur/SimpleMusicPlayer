@@ -16,13 +16,23 @@ const {
 
 const Action = {
   playSong: (persistentID) => {
-    console.log('playSong', persistentID);
     MediaBridge.playSong(persistentID);
   },
 
   playAlbumSong: (persistentID, albumPersistentID) => {
-    console.log('playAlbumSong', persistentID, albumPersistentID);
     MediaBridge.playAlbumSong(persistentID, albumPersistentID);
+  },
+
+  startPause: () => {
+    MediaBridge.startPause();
+  },
+
+  next: () => {
+    MediaBridge.next();
+  },
+
+  prev: () => {
+    MediaBridge.prev();
   },
 };
 
