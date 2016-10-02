@@ -7,7 +7,7 @@ import {
 } from '../const';
 
 class AppStore {
-  @observable selectedTab = TABS.PLAYING;
+  @observable selectedTab = TABS.ALBUM;
 
   @observable nowPlaying = asStructure({
     title:      '',
