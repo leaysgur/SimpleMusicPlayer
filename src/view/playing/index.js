@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   StyleSheet,
-  NavigatorIOS,
+  View,
 } from 'react-native';
 import {
   observer,
 } from 'mobx-react/native';
 
-import Player from './player';
+import Item from './item';
 
 const styles = StyleSheet.create({
   view: {
@@ -18,19 +18,10 @@ const styles = StyleSheet.create({
 const PlayingView = ({
   nowPlaying,
 }) => {
-  const route = {
-    component: Player,
-    title: `再生中${nowPlaying.title}`,
-    passProps: {
-      ...nowPlaying,
-    }
-  };
-
   return (
-    <NavigatorIOS
-      initialRoute={route}
-      style={styles.view}
-    />
+    <View style={styles.view}>
+      <Item {...nowPlaying} />
+    </View>
   );
 };
 PlayingView.propTypes = {

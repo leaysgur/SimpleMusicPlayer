@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   Text,
+  Image,
   StyleSheet,
 } from 'react-native';
 import {
@@ -14,21 +15,26 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  artwork: {
+    width:  300,
+    height: 300,
   }
 });
 
-const Player = ({
+const Item = ({
   title,
   albumTitle,
   artist,
+  artwork,
   duration,
-  // currentTime,
 }) => {
   return (
     <View
       style={styles.view}
     >
       <Text>==============</Text>
+      <Image style={styles.artwork} source={{ uri: artwork }} />
       <Text>{title}</Text>
       <Text>{albumTitle}</Text>
       <Text>{artist}</Text>
@@ -37,12 +43,12 @@ const Player = ({
     </View>
   );
 };
-Player.propTypes = {
-  title:      React.PropTypes.string,
-  albumTitle: React.PropTypes.string,
-  artist:     React.PropTypes.string,
-  duration:   React.PropTypes.string,
-  // currentTime: React.PropTypes.number,
+Item.propTypes = {
+  title:      React.PropTypes.string.isRequired,
+  albumTitle: React.PropTypes.string.isRequired,
+  artist:     React.PropTypes.string.isRequired,
+  artwork:    React.PropTypes.string.isRequired,
+  duration:   React.PropTypes.string.isRequired,
 };
 
-export default observer(Player);
+export default observer(Item);
