@@ -52,9 +52,10 @@ import MediaPlayer
         
         let albumPersistentID = String(albumItem.albumPersistentID);
         albumMap[albumPersistentID] = [
-          "artwork": __image2base64String(artwork.imageWithSize(artwork.bounds.size)!),
-          "title":   albumItem.albumTitle  ?? "No title",
-          "artist":  albumItem.albumArtist ?? "Various Artists",
+          "artwork":     __image2base64String(artwork.imageWithSize(artwork.bounds.size)!),
+          "title":       albumItem.albumTitle  ?? "No title",
+          "artist":      albumItem.albumArtist ?? "Various Artists",
+          "releaseYear": albumItem.valueForProperty("year") ?? "",
         ]
         
         var songs = [String]()

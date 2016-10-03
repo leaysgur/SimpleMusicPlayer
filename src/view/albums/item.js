@@ -31,22 +31,26 @@ const styles = StyleSheet.create({
   },
   album_body: {
     flex: 1,
-    paddingLeft: 10
+    paddingLeft: 10,
+  },
+  album_body_text: {
+    fontSize: 20,
   },
 
   list_row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 10,
-    paddingLeft: 0
+    paddingLeft: 0,
   },
   list_row_trackNo: {
     width: 30,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   list_row_title: {
     flex: 1,
-    textAlign: 'left'
+    textAlign: 'left',
   }
 });
 
@@ -56,6 +60,8 @@ class AlbumItem extends React.Component {
       title,
       artist,
       artwork,
+      releaseYear,
+      duration,
       songs,
     } = this.props.album;
     const {
@@ -65,14 +71,15 @@ class AlbumItem extends React.Component {
     return (
       <ListView
         dataSource={items2DataSource(songs)}
-        renderSectionHeader= { () => {
+        renderSectionHeader={ () => {
           return (
             <View style={styles.album}>
               <Image style={styles.album_artwork} source={{ uri: artwork }} />
               <View style={styles.album_body}>
-                <Text>{title}</Text>
-                <Text>{artist}</Text>
-                <Text>{songs.length}曲</Text>
+                <Text style={styles.album_body_text}>{title}</Text>
+                <Text style={styles.album_body_text}>{artist}</Text>
+                { releaseYear ? <Text>{releaseYear}年</Text> : null }
+                <Text>{songs.length}曲 / <Time seconds={duration} /></Text>
               </View>
             </View>
           );
