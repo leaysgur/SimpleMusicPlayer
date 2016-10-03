@@ -8,7 +8,6 @@
 ## TODO
 - [js] playbackコントロール
   - volume
-  - seek
     - Sliderコンポーネントを使ってみる
 - [ot] デザインの調整
 - [ot] タブのアイコン
