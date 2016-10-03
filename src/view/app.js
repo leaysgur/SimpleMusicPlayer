@@ -9,6 +9,12 @@ import ArtistsView from './artists';
 import AlbumsView  from './albums';
 import PlayingView from './playing';
 
+import albumIcon    from '../icon/tab-album.png';
+import artistIcon   from '../icon/tab-artist.png';
+import songsIcon    from '../icon/tab-songs.png';
+import playingIcon  from '../icon/tab-playing.png';
+
+
 const App = ({
   action,
   store,
@@ -22,6 +28,7 @@ const App = ({
     >
 
       <TabBarIOS.Item
+        icon={albumIcon}
         title="アルバム"
         selected={store.selectedTab === TABS.ALBUM}
         onPress={ () => { store.selectedTab = TABS.ALBUM; } }
@@ -33,6 +40,7 @@ const App = ({
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
+        icon={artistIcon}
         title="アーティスト"
         selected={store.selectedTab === TABS.ARTIST}
         onPress={ () => { store.selectedTab = TABS.ARTIST; } }
@@ -44,6 +52,7 @@ const App = ({
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
+        icon={songsIcon}
         title="曲"
         selected={store.selectedTab === TABS.SONGS}
         onPress={ () => { store.selectedTab = TABS.SONGS; } }
@@ -55,6 +64,7 @@ const App = ({
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
+        icon={playingIcon}
         title="再生中"
         selected={store.selectedTab === TABS.PLAYING}
         onPress={ () => { store.selectedTab = TABS.PLAYING; } }
