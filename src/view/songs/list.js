@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+
 import {
   Separator,
   ThumbListItem,
@@ -38,6 +39,7 @@ const SongList = ({
     />
   );
 };
+
 SongList.propTypes = {
   songs:      React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   onPressRow: React.PropTypes.func.isRequired,
