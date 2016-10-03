@@ -1,8 +1,15 @@
+/**
+ * Nativeから受け取った音楽データを貯めるところ
+ *
+ * - 初期化されて以降はデータに変更なし
+ * - ただ参照されるのみ
+ *
+ */
 class Media {
-  songs      = [];
-  artists    = [];
-  albums     = [];
-  songMap    = {};
+  songs   = [];
+  artists = [];
+  albums  = [];
+  songMap = {};
 
   init({
     songs,
