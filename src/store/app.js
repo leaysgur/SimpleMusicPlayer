@@ -94,11 +94,8 @@ class AppStore {
    *
    */
   checkPause(state) {
-    if (
-      state === PLAYING_STATE.PAUSE &&
-      this.playingState !== PLAYING_STATE.PAUSE
-    ) {
-      this.playingState = PLAYING_STATE.PAUSE;
+    if (state !== PLAYING_STATE) {
+      this.playingState = state;
     }
   }
 }
