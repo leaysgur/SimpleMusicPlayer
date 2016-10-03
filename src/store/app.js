@@ -15,7 +15,7 @@ class AppStore {
   // 音楽データ取得完了
   @observable isReady = false;
   // どのタブ
-  @observable selectedTab = TABS.PLAYING;
+  @observable selectedTab = TABS.ALBUM;
 
   // 再生中の曲
   @observable nowPlaying = asStructure({

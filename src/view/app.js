@@ -20,14 +20,15 @@ const App = ({
       unselectedTintColor="#aaa"
       barTintColor="#eee"
     >
+
       <TabBarIOS.Item
-        title="曲"
-        selected={store.selectedTab === TABS.SONGS}
-        onPress={ () => { store.selectedTab = TABS.SONGS; } }
+        title="アルバム"
+        selected={store.selectedTab === TABS.ALBUM}
+        onPress={ () => { store.selectedTab = TABS.ALBUM; } }
       >
-        <SongsView
-          songs={model.songs}
-          onPressRow={action.playSong}
+        <AlbumsView
+          albums={model.albums}
+          onPressRow={action.playAlbumSong}
         />
       </TabBarIOS.Item>
 
@@ -43,13 +44,13 @@ const App = ({
       </TabBarIOS.Item>
 
       <TabBarIOS.Item
-        title="アルバム"
-        selected={store.selectedTab === TABS.ALBUM}
-        onPress={ () => { store.selectedTab = TABS.ALBUM; } }
+        title="曲"
+        selected={store.selectedTab === TABS.SONGS}
+        onPress={ () => { store.selectedTab = TABS.SONGS; } }
       >
-        <AlbumsView
-          albums={model.albums}
-          onPressRow={action.playAlbumSong}
+        <SongsView
+          songs={model.songs}
+          onPressRow={action.playSong}
         />
       </TabBarIOS.Item>
 
@@ -63,6 +64,7 @@ const App = ({
           controllerAction={{...action}}
         />
       </TabBarIOS.Item>
+
     </TabBarIOS>
   );
 };
