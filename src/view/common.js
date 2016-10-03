@@ -7,12 +7,16 @@ import {
   Text,
 } from 'react-native';
 
+
 const styles = StyleSheet.create({
   loader: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  loader_text: {
+    fontSize: 30,
   },
 
   separator: {
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
 export const Loading = () => {
   return (
     <View style={styles.loader}>
-      <Text>Now loading...</Text>
+      <Text style={styles.loader_text}>Now loading...</Text>
     </View>
   );
 };
