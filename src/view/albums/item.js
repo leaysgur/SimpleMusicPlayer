@@ -7,10 +7,12 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+
 import {
   Separator,
   items2DataSource,
 } from '../common';
+
 
 const styles = StyleSheet.create({
   album: {
@@ -48,7 +50,6 @@ const styles = StyleSheet.create({
 });
 
 class AlbumItem extends React.Component {
-
   render() {
     const {
       title,

@@ -3,7 +3,9 @@ import {
   StyleSheet,
   NavigatorIOS,
 } from 'react-native';
+
 import AlbumList from './list';
+
 
 const styles = StyleSheet.create({
   view: {
@@ -11,17 +13,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const AlbumsView = ({
-  albums,
-  onPressRow,
-}) => {
+const AlbumsView = (props) => {
   const route = {
     component: AlbumList,
     title: 'すべてのアルバム',
-    passProps: {
-      albums,
-      onPressRow,
-    }
+    passProps: props,
   };
 
   return (
@@ -30,10 +26,6 @@ const AlbumsView = ({
       style={styles.view}
     />
   );
-};
-AlbumsView.propTypes = {
-  albums:     React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  onPressRow: React.PropTypes.func.isRequired,
 };
 
 export default AlbumsView;

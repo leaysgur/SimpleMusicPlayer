@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+
 import {
   Separator,
   ThumbListItem,
@@ -11,8 +12,8 @@ import {
 } from '../common';
 import AlbumItem from './item';
 
-class AlbumList extends React.Component {
 
+class AlbumList extends React.Component {
   render() {
     return (
       <ListView
@@ -54,6 +55,7 @@ class AlbumList extends React.Component {
     });
   }
 }
+
 AlbumList.propTypes = {
   navigator:  React.PropTypes.object.isRequired,
   albums:     React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
