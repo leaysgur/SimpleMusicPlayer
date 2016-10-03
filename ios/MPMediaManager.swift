@@ -103,6 +103,7 @@ import MediaPlayer
     player.setQueueWithQuery(MPMediaQuery.songsQuery())
     
     player.nowPlayingItem = self._getNowPlayingItem(persistentID)
+    player.currentPlaybackTime = 0
     player.play()
   }
   
@@ -116,6 +117,7 @@ import MediaPlayer
     player.setQueueWithQuery(query)
     
     player.nowPlayingItem = self._getNowPlayingItem(persistentID)
+    player.currentPlaybackTime = 0
     player.play()
   }
   
