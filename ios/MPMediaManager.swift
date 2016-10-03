@@ -11,8 +11,8 @@ import MediaPlayer
   override init() {
     super.init()
     
-    // 最初はNoneからはじめる
-    player.repeatMode = MPMusicRepeatMode.None
+    // どうせAllなので最初から
+    player.repeatMode = MPMusicRepeatMode.All
     // シャッフル機能はありません
     player.shuffleMode = MPMusicShuffleMode.Off
     

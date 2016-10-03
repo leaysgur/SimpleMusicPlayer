@@ -31,7 +31,7 @@ class AppStore {
   // 再生状態
   @observable isSeeking = false;
   @observable playingState = PLAYING_STATE.PAUSE;
-  @observable repeatMode = REPEAT_MODE.NONE;
+  @observable repeatMode = REPEAT_MODE.ALL;
 
   /**
    * 曲が再生されているか
