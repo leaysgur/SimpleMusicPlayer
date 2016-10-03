@@ -2,13 +2,12 @@ import React from 'react';
 import {
   Dimensions,
   View,
-  Text,
-  Slider,
   StyleSheet,
 } from 'react-native';
 import {
   observer,
 } from 'mobx-react/native';
+import Slider from 'react-native-slider';
 
 import {
   Time
@@ -19,14 +18,28 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   view: {
     width: width,
+    marginBottom: 10,
   },
   time: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    paddingLeft: 5,
+    paddingRight: 5,
   },
   slider: {
-    height: 10,
-    backgroundColor: '#303030',
+    height: 20,
+  },
+  slider_track: {
+    height: 5,
+    backgroundColor: '#eee',
+  },
+  slider_thumb: {
+    position: 'relative',
+    top: 5,
+    width: 4,
+    height: 20,
+    backgroundColor: '#0094c8',
+    borderRadius: 1,
   }
 });
 
@@ -41,6 +54,9 @@ const Progress = ({
     <View style={styles.view}>
       <Slider
         style={styles.slider}
+        trackStyle={styles.slider_track}
+        thumbStyle={styles.slider_thumb}
+        minimumTrackTintColor="#aaa"
         disabled={false}
         onValueChange={changeProgress}
         onSlidingComplete={changedProgress}
@@ -48,7 +64,8 @@ const Progress = ({
       />
 
       <View style={styles.time}>
-        <Text><Time seconds={currentPlaybackTime} /> / <Time seconds={duration} /></Text>
+        <Time seconds={currentPlaybackTime} />
+        <Time seconds={duration} />
       </View>
     </View>
   );
