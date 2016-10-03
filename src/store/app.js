@@ -3,15 +3,17 @@ import {
   computed,
   observable,
 } from 'mobx';
+
 import {
   TABS,
   PLAYING_STATE,
   REPEAT_MODE,
 } from '../const';
 
-class AppStore {
-  @observable isReady = false;
 
+class AppStore {
+  // 音楽データ取得完了
+  @observable isReady = false;
   // どのタブ
   @observable selectedTab = TABS.PLAYING;
 
@@ -23,7 +25,7 @@ class AppStore {
     artwork:    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D',
     albumTitle: '-',
   });
-
+  // 再生中の曲（再生中に変化するのはコレだけ）
   @observable currentPlaybackTime = 0;
 
   // 再生状態
@@ -58,6 +60,8 @@ class AppStore {
   /**
    * 曲が切り替わった時にNativeに呼ばれる
    *
+   * - 直接つっこまないのは、他にもいろいろ付いてきてるから
+   *
    */
   updateNowPlaying({
     title,
@@ -66,7 +70,6 @@ class AppStore {
     artwork,
     albumTitle,
   }) {
-    // 直接つっこまないのはもっといろいろ付いてきてるから
     this.nowPlaying = {
       title,
       artist,
