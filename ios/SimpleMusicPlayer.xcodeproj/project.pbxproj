@@ -105,6 +105,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		8FD57BD11DA21EBF00C6FAE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8FD57BC31DA21EBF00C6FAE3 /* RNVolumeSlider.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B15A785B1C561BA20027C1CE;
+			remoteInfo = RNVolumeSlider;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -129,6 +136,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8FD57BC31DA21EBF00C6FAE3 /* RNVolumeSlider.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVolumeSlider.xcodeproj; path = "../node_modules/react-native-volume-slider/ios/RNVolumeSlider.xcodeproj"; sourceTree = "<group>"; };
 		8FDFA8C01D33496600C93D58 /* MPMediaManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMediaManger.m; sourceTree = "<group>"; };
 		8FDFA8C21D334E6400C93D58 /* MPMediaManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MPMediaManager.swift; sourceTree = "<group>"; };
 		8FDFA8C41D334E9400C93D58 /* SimpleMusicPlayer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleMusicPlayer-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -272,6 +280,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8FD57BC31DA21EBF00C6FAE3 /* RNVolumeSlider.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -311,6 +320,14 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* SimpleMusicPlayer.app */,
 				00E356EE1AD99517003FC87E /* SimpleMusicPlayerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8FD57BC41DA21EBF00C6FAE3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8FD57BD21DA21EBF00C6FAE3 /* libRNVolumeSlider.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -424,6 +441,10 @@
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
+				{
+					ProductGroup = 8FD57BC41DA21EBF00C6FAE3 /* Products */;
+					ProjectRef = 8FD57BC31DA21EBF00C6FAE3 /* RNVolumeSlider.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -502,6 +523,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8FD57BD21DA21EBF00C6FAE3 /* libRNVolumeSlider.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVolumeSlider.a;
+			remoteRef = 8FD57BD11DA21EBF00C6FAE3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -710,6 +738,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-volume-slider/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -754,6 +783,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-volume-slider/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

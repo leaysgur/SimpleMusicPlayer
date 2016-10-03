@@ -9,6 +9,7 @@ import {
 import {
   observer,
 } from 'mobx-react/native';
+import VolumeSlider from 'react-native-volume-slider';
 import {
   Time
 } from '../common';
@@ -58,6 +59,16 @@ const Controller = ({
         onValueChange={changeProgress}
         onSlidingComplete={changedProgress}
         value={currentPlaybackTime/duration}
+      />
+
+      <VolumeSlider
+        thumbSize={{
+          width: 8,
+          height: 8
+        }}
+        thumbTintColor="rgb(146,146,157)"
+        minimumTrackTintColor="rgb(146,146,157)"
+        maximumTrackTintColor="rgba(255,255,255, 0.1)"
       />
 
       <View style={styles.control}>
