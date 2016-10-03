@@ -11,10 +11,10 @@ import {
 } from 'mobx-react/native';
 import VolumeSlider from 'react-native-volume-slider';
 
-const prevIcon  = require('../../icon/prev.png');
-const nextIcon  = require('../../icon/next.png');
-const playIcon  = require('../../icon/play.png');
-const pauseIcon = require('../../icon/pause.png');
+import prevIcon  from '../../icon/prev.png';
+import nextIcon  from '../../icon/next.png';
+import playIcon  from '../../icon/play.png';
+import pauseIcon from '../../icon/pause.png';
 
 const styles = StyleSheet.create({
   view: {
