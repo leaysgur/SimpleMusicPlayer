@@ -7,15 +7,17 @@ import {
   observer,
 } from 'mobx-react/native';
 
+import Artwork from './artwork';
+import Progress from './progress';
 import Item from './item';
 import Controller from './controller';
+
 
 const styles = StyleSheet.create({
   view: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingTop: 20,
   }
 });
 
@@ -28,17 +30,27 @@ const PlayingView = ({
 }) => {
   return (
     <View style={styles.view}>
-      <Item {...nowPlaying} />
-      <Controller
-        duration={nowPlaying.duration}
-        repeatMode={repeatMode}
-        playingState={playingState}
+
+      <Artwork url={nowPlaying.artwork} />
+
+      <Progress
         currentPlaybackTime={currentPlaybackTime}
+        duration={nowPlaying.duration}
         {...controllerAction}
       />
+
+      <Item {...nowPlaying} />
+
+      <Controller
+        repeatMode={repeatMode}
+        playingState={playingState}
+        {...controllerAction}
+      />
+
     </View>
   );
 };
+
 PlayingView.propTypes = {
   nowPlaying:          React.PropTypes.object.isRequired,
   repeatMode:          React.PropTypes.string.isRequired,

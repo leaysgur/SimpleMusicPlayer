@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  Slider,
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
@@ -10,9 +9,6 @@ import {
   observer,
 } from 'mobx-react/native';
 import VolumeSlider from 'react-native-volume-slider';
-import {
-  Time
-} from '../common';
 
 const styles = StyleSheet.create({
   view: {
@@ -26,10 +22,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  time: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
   control_text: {
     padding: 5,
     fontSize: 15,
@@ -37,30 +29,14 @@ const styles = StyleSheet.create({
 });
 
 const Controller = ({
-  duration,
   repeatMode,
   playingState,
-  currentPlaybackTime,
   togglePlay,
   skipPrev, skipNext,
   changeRepeat,
-  changeProgress,
-  changedProgress,
 }) => {
-
   return (
     <View style={styles.view}>
-      <View style={styles.time}>
-        <Text><Time seconds={currentPlaybackTime} /> / <Time seconds={duration} /></Text>
-      </View>
-
-      <Slider
-        disabled={false}
-        onValueChange={changeProgress}
-        onSlidingComplete={changedProgress}
-        value={currentPlaybackTime/duration}
-      />
-
       <VolumeSlider
         thumbSize={{
           width: 8,
@@ -88,17 +64,14 @@ const Controller = ({
     </View>
   );
 };
+
 Controller.propTypes = {
   repeatMode:          React.PropTypes.string.isRequired,
   playingState:        React.PropTypes.string.isRequired,
-  duration:            React.PropTypes.number.isRequired,
-  currentPlaybackTime: React.PropTypes.number.isRequired,
   togglePlay:          React.PropTypes.func.isRequired,
   skipPrev:            React.PropTypes.func.isRequired,
   skipNext:            React.PropTypes.func.isRequired,
   changeRepeat:        React.PropTypes.func.isRequired,
-  changeProgress:      React.PropTypes.func.isRequired,
-  changedProgress:     React.PropTypes.func.isRequired,
 };
 
 export default observer(Controller);

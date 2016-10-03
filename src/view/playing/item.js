@@ -2,48 +2,42 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
-  Dimensions,
   StyleSheet,
 } from 'react-native';
 import {
   observer,
 } from 'mobx-react/native';
 
-const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   view: {
+    flex: 1,
     alignItems: 'center',
-    marginBottom: 20,
   },
-  artwork: {
-    width:  width,
-    height: width,
-  }
+  title: {
+    fontSize: 22,
+  },
 });
 
 const Item = ({
   title,
   albumTitle,
   artist,
-  artwork,
 }) => {
   return (
     <View
       style={styles.view}
     >
-      <Image style={styles.artwork} source={{ uri: artwork }} />
-      <Text>{title}</Text>
+      <Text style={styles.title}>{title}</Text>
       <Text>{artist} / {albumTitle}</Text>
     </View>
   );
 };
+
 Item.propTypes = {
   title:      React.PropTypes.string.isRequired,
   albumTitle: React.PropTypes.string.isRequired,
   artist:     React.PropTypes.string.isRequired,
-  artwork:    React.PropTypes.string.isRequired,
 };
 
 export default observer(Item);
