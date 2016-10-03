@@ -88,6 +88,19 @@ class AppStore {
       albumTitle,
     };
   }
+
+  /**
+   * イヤホンが抜けて再生が止まったときとかに、UIの状態をチェックする
+   *
+   */
+  checkPause(state) {
+    if (
+      state === PLAYING_STATE.PAUSE &&
+      this.playingState !== PLAYING_STATE.PAUSE
+    ) {
+      this.playingState = PLAYING_STATE.PAUSE;
+    }
+  }
 }
 
 export default (new AppStore());

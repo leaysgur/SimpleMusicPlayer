@@ -5,7 +5,7 @@ import MediaPlayer
   var _nowPlayingQuery = MPMediaQuery()
 
   override func supportedEvents() -> [String]! {
-    return ["onPlayItemChanged"]
+    return ["onPlayItemChanged", "onPlaybackStateChanged"]
   }
   
   override init() {
@@ -21,6 +21,12 @@ import MediaPlayer
       self,
       selector: #selector(MediaBridge._playItemChanged(_:)),
       name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification,
+      object: player
+    )
+    NSNotificationCenter.defaultCenter().addObserver(
+      self,
+      selector: #selector(MediaBridge._playbackStateChanged(_:)),
+      name: MPMusicPlayerControllerPlaybackStateDidChangeNotification,
       object: player
     )
     player.beginGeneratingPlaybackNotifications()
@@ -136,7 +142,6 @@ import MediaPlayer
   }
   
   @objc func changeRepeat(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-    debugPrint(player.currentPlaybackTime, player.nowPlayingItem?.playbackDuration)
     switch (player.repeatMode) {
     case MPMusicRepeatMode.None:
       player.repeatMode = MPMusicRepeatMode.One
@@ -176,6 +181,22 @@ import MediaPlayer
       nowPlaying["persistentID"]      = String(mediaItem.persistentID)
       nowPlaying["albumPersistentID"] = String(mediaItem.albumPersistentID)
       self.sendEventWithName("onPlayItemChanged", body: nowPlaying)
+    }
+  }
+  
+  func _playbackStateChanged(notify:NSNotificationCenter) {
+    switch (player.playbackState) {
+    case MPMusicPlaybackState.Interrupted:
+      self.sendEventWithName("onPlaybackStateChanged", body: "pause")
+      break
+    case MPMusicPlaybackState.Paused:
+      self.sendEventWithName("onPlaybackStateChanged", body: "pause")
+      break
+    case MPMusicPlaybackState.Stopped:
+      self.sendEventWithName("onPlaybackStateChanged", body: "pause")
+      break
+    default:
+      self.sendEventWithName("onPlaybackStateChanged", body: "play")
     }
   }
   

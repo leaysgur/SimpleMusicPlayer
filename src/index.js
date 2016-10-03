@@ -25,6 +25,7 @@ class Index extends React.Component {
   constructor() {
     super();
 
+    this.listeners = [];
     this.eventEmitter = new NativeEventEmitter(MediaBridge);
     this.action = new NativeAction(MediaBridge, AppStore);
 
@@ -59,9 +60,12 @@ class Index extends React.Component {
     .then((music) => {
       MediaModel.init(music);
 
-      this.disposeEmitter = this.eventEmitter.addListener('onPlayItemChanged', (payload) => {
+      this.listeners.push(this.eventEmitter.addListener('onPlayItemChanged', (payload) => {
         payload && AppStore.updateNowPlaying(MediaModel.getItem(payload));
-      });
+      }));
+      this.listeners.push(this.eventEmitter.addListener('onPlaybackStateChanged', (payload) => {
+        AppStore.checkPause(payload);
+      }));
 
       AppStore.isReady = true;
       this.forceUpdate();
@@ -69,7 +73,7 @@ class Index extends React.Component {
   }
 
   componentWillUnmount() {
-    this.disposeEmitter();
+    this.listeners.forEach((disposer) => { disposer(); });
   }
 
 }
