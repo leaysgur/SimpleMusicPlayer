@@ -6,11 +6,6 @@
 あれを作りたい。
 
 ## TODO
-- [sw] 再生中の曲情報の表示
-  - 再生秒数
-    - `getCurrentPlaybackTime`をSwiftで用意したので、rAFで叩きに行く
-    - うまくplay/pauseで無駄な処理を省きたい
-    - Promiseでやってるせいか迷子になるのでコールバックスタイルにする
 - [js] playbackコントロール
   - volume
   - seek
