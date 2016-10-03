@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 import { Loading } from './view/common';
-import App from './app';
+import App from './view/app';
 
 import AppStore from './store/app';
 import MediaModel from './model/media';
