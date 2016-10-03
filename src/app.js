@@ -74,10 +74,12 @@ class App extends React.Component {
             playingState={store.playingState}
             currentPlaybackTime={store.currentPlaybackTime}
             controllerAction={{
-              togglePlay:   action.togglePlay,
-              skipPrev:     action.skipPrev,
-              skipNext:     action.skipNext,
-              changeRepeat: action.changeRepeat,
+              togglePlay:      action.togglePlay,
+              skipPrev:        action.skipPrev,
+              skipNext:        action.skipNext,
+              changeRepeat:    action.changeRepeat,
+              changeProgress:  action.changeProgress,
+              changedProgress: action.changedProgress,
             }}
           />
         </TabBarIOS.Item>

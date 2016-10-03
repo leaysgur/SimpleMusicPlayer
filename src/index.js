@@ -56,6 +56,15 @@ class Bootstrap extends React.Component {
           AppStore.repeatMode = mode;
         });
       },
+
+      changeProgress: (val) => {
+        AppStore.isSeeking = true;
+        console.log(val);
+      },
+
+      changedProgress: () => {
+        AppStore.isSeeking = false;
+      },
     };
   }
 

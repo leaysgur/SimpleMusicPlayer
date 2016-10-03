@@ -43,7 +43,10 @@ const Controller = ({
   togglePlay,
   skipPrev, skipNext,
   changeRepeat,
+  changeProgress,
+  changedProgress,
 }) => {
+
   return (
     <View style={styles.view}>
       <View style={styles.time}>
@@ -52,8 +55,9 @@ const Controller = ({
 
       <Slider
         disabled={false}
-        value={0.5}
-        onValueChange={(val) => { console.log(val); }}
+        onValueChange={changeProgress}
+        onSlidingComplete={changedProgress}
+        value={currentPlaybackTime/duration}
       />
 
       <View style={styles.control}>
@@ -82,6 +86,8 @@ Controller.propTypes = {
   skipPrev:            React.PropTypes.func.isRequired,
   skipNext:            React.PropTypes.func.isRequired,
   changeRepeat:        React.PropTypes.func.isRequired,
+  changeProgress:      React.PropTypes.func.isRequired,
+  changedProgress:     React.PropTypes.func.isRequired,
 };
 
 export default observer(Controller);

@@ -13,17 +13,18 @@ class AppStore {
   @observable nowPlaying = asStructure({
     title:      '曲を選んでね',
     artist:     '-',
-    duration:   '00:00:00',
+    duration:   0,
     artwork:    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D',
     albumTitle: '-',
   });
 
+  @observable isSeeking = false;
   @observable currentPlaybackTime = 0;
   @observable playingState = 'pause';
   @observable repeatMode = 'none';
 
   @computed get isPlaying() {
-    return this.playingState === 'play';
+    return this.playingState === 'play' && this.isSeeking === false;
   }
 
   updateNowPlaying({
