@@ -39,9 +39,19 @@ class AppStore {
    * - これがtrueなら再生時間がNative側から同期される
    *
    */
-  @computed get isPlaying() {
+  @computed get canSyncPlaybackTime() {
     return this.playingState === PLAYING_STATE.PLAY &&
            this.isSeeking    === false;
+  }
+
+  /**
+   * 曲が再生されているか
+   *
+   * - 再生・一時停止ボタン用に
+   *
+   */
+  @computed get isPlaying() {
+    return this.playingState === PLAYING_STATE.PLAY;
   }
 
   /**

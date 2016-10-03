@@ -32,7 +32,7 @@ class Index extends React.Component {
 
     function rAF() {
       requestAnimationFrame(rAF);
-      if (AppStore.isPlaying) {
+      if (AppStore.canSyncPlaybackTime) {
         MediaBridge.getCurrentPlaybackTime().then((time) => {
           AppStore.currentPlaybackTime = time;
         });

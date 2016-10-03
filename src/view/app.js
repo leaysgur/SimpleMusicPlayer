@@ -61,6 +61,7 @@ const App = ({
       >
         <PlayingView
           {...store}
+          isPlaying={store.isPlaying}
           controllerAction={{...action}}
         />
       </TabBarIOS.Item>

@@ -48,7 +48,7 @@ styles.slider_thumb = {
 
 const Controller = ({
   repeatMode,
-  playingState,
+  isPlaying,
   togglePlay,
   skipPrev, skipNext,
   changeRepeat,
@@ -60,7 +60,7 @@ const Controller = ({
           <Text style={styles.control_text}>前へ</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={togglePlay}>
-          <Text style={styles.control_text}>{playingState === 'play' ? '一時停止' : '再生'}</Text>
+          <Text style={styles.control_text}>{isPlaying ? '一時停止' : '再生'}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={skipNext}>
           <Text style={styles.control_text}>次へ</Text>
@@ -89,7 +89,7 @@ const Controller = ({
 
 Controller.propTypes = {
   repeatMode:   React.PropTypes.string.isRequired,
-  playingState: React.PropTypes.string.isRequired,
+  isPlaying:    React.PropTypes.bool.isRequired,
   togglePlay:   React.PropTypes.func.isRequired,
   skipPrev:     React.PropTypes.func.isRequired,
   skipNext:     React.PropTypes.func.isRequired,
