@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Image,
   View,
   Text,
   TouchableOpacity,
@@ -9,6 +10,11 @@ import {
   observer,
 } from 'mobx-react/native';
 import VolumeSlider from 'react-native-volume-slider';
+
+const prevIcon  = require('../../icon/prev.png');
+const nextIcon  = require('../../icon/next.png');
+const playIcon  = require('../../icon/play.png');
+const pauseIcon = require('../../icon/pause.png');
 
 const styles = StyleSheet.create({
   view: {
@@ -22,11 +28,12 @@ const styles = StyleSheet.create({
   control: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
-  control_text: {
-    padding: 5,
-    fontSize: 25,
+  control_icon: {
+    padding: 10,
+    width: 30,
+    height: 30,
   },
   control_mode: {
     padding: 5,
@@ -57,13 +64,16 @@ const Controller = ({
     <View style={styles.view}>
       <View style={styles.control}>
         <TouchableOpacity onPress={skipPrev}>
-          <Text style={styles.control_text}>前へ</Text>
+          <Image style={styles.control_icon} source={prevIcon} />
         </TouchableOpacity>
         <TouchableOpacity onPress={togglePlay}>
-          <Text style={styles.control_text}>{isPlaying ? '一時停止' : '再生'}</Text>
+          { isPlaying ?
+            <Image style={styles.control_icon} source={pauseIcon} /> :
+            <Image style={styles.control_icon} source={playIcon} />
+          }
         </TouchableOpacity>
         <TouchableOpacity onPress={skipNext}>
-          <Text style={styles.control_text}>次へ</Text>
+          <Image style={styles.control_icon} source={nextIcon} />
         </TouchableOpacity>
       </View>
 
