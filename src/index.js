@@ -21,7 +21,7 @@ class Bootstrap extends React.Component {
       requestAnimationFrame(rAF);
       if (AppStore.isPlaying) {
         MediaBridge.getCurrentPlaybackTime().then((time) => {
-          AppStore._currentPlaybackTime = time;
+          AppStore.currentPlaybackTime = time;
         });
       }
     }

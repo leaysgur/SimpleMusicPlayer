@@ -2,12 +2,16 @@ import React from 'react';
 import {
   View,
   Text,
+  Slider,
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
 import {
   observer,
 } from 'mobx-react/native';
+import {
+  Time
+} from '../common';
 
 const styles = StyleSheet.create({
   view: {
@@ -26,8 +30,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   control_text: {
-    padding: 10,
-    fontSize: 20,
+    padding: 5,
+    fontSize: 15,
   }
 });
 
@@ -43,14 +47,14 @@ const Controller = ({
   return (
     <View style={styles.view}>
       <View style={styles.time}>
-        <Text>{currentPlaybackTime} / {duration}</Text>
+        <Text><Time seconds={currentPlaybackTime} /> / <Time seconds={duration} /></Text>
       </View>
 
-      <View style={styles.control}>
-        <TouchableOpacity onPress={changeRepeat}>
-          <Text style={styles.control_text}>リピート:{repeatMode}</Text>
-        </TouchableOpacity>
-      </View>
+      <Slider
+        disabled={false}
+        value={0.5}
+        onValueChange={(val) => { console.log(val); }}
+      />
 
       <View style={styles.control}>
         <TouchableOpacity onPress={skipPrev}>
@@ -62,15 +66,18 @@ const Controller = ({
         <TouchableOpacity onPress={skipNext}>
           <Text style={styles.control_text}>次へ</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={changeRepeat}>
+          <Text style={styles.control_text}>リピート:{repeatMode}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 Controller.propTypes = {
-  duration:            React.PropTypes.string.isRequired,
   repeatMode:          React.PropTypes.string.isRequired,
   playingState:        React.PropTypes.string.isRequired,
-  currentPlaybackTime: React.PropTypes.string.isRequired,
+  duration:            React.PropTypes.number.isRequired,
+  currentPlaybackTime: React.PropTypes.number.isRequired,
   togglePlay:          React.PropTypes.func.isRequired,
   skipPrev:            React.PropTypes.func.isRequired,
   skipNext:            React.PropTypes.func.isRequired,

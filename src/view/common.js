@@ -70,6 +70,34 @@ ThumbListItem.propTypes = {
   children: React.PropTypes.node,
 };
 
+export const Time = ({
+  seconds
+}) => {
+  return <Text>{_toDispDuration(seconds)}</Text>;
+
+  function _toDispDuration(seconds) {
+    seconds = Math.floor(seconds);
+
+    let hours = Math.floor(seconds / 3600);
+    seconds -= hours*3600;
+
+    let minutes = Math.floor(seconds / 60);
+    seconds -= minutes*60;
+
+    if (hours) {
+      if (hours < 10) { hours = '0' + hours; }
+      return `${hours}:${minutes}:${seconds}`;
+    }
+
+    if (minutes < 10) { minutes = '0' + minutes; }
+    if (seconds < 10) { seconds = '0' + seconds; }
+    return `${minutes}:${seconds}`;
+  }
+};
+Time.propTypes = {
+  seconds: React.PropTypes.number.isRequired,
+};
+
 export const items2DataSource = (items) => {
   return (new ListView.DataSource({
     rowHasChanged: (r1, r2) => r1 !== r2

@@ -43,7 +43,7 @@ PlayingView.propTypes = {
   nowPlaying:          React.PropTypes.object.isRequired,
   repeatMode:          React.PropTypes.string.isRequired,
   playingState:        React.PropTypes.string.isRequired,
-  currentPlaybackTime: React.PropTypes.string.isRequired,
+  currentPlaybackTime: React.PropTypes.number.isRequired,
   controllerAction:    React.PropTypes.object.isRequired,
 };
 

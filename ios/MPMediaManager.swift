@@ -13,24 +13,17 @@ import MediaPlayer
     
     // 最初はNoneからはじめる
     player.repeatMode = MPMusicRepeatMode.None
+    // シャッフル機能はありません
+    player.shuffleMode = MPMusicShuffleMode.Off
     
-    // TODO: MPMusicPlayerControllerPlaybackStateDidChangeNotification も
+    // 曲が変わったらイベントで知らせる
     NSNotificationCenter.defaultCenter().addObserver(
       self,
-      selector: #selector(MediaBridge.playItemChanged(_:)),
+      selector: #selector(MediaBridge._playItemChanged(_:)),
       name: MPMusicPlayerControllerNowPlayingItemDidChangeNotification,
       object: player
     )
     player.beginGeneratingPlaybackNotifications()
-  }
-
-  func playItemChanged(notify:NSNotificationCenter) {
-    if let mediaItem = player.nowPlayingItem {
-      var nowPlaying = [String: String]()
-      nowPlaying["persistentID"]      = String(mediaItem.persistentID)
-      nowPlaying["albumPersistentID"] = String(mediaItem.albumPersistentID)
-      self.sendEventWithName("onPlayItemChanged", body: nowPlaying)
-    }
   }
   
   @objc func fetchMusic(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
@@ -85,8 +78,7 @@ import MediaPlayer
         songMap[persistentID] = [
           "title":             songItem.title  ?? "No title",
           "artist":            songItem.artist ?? "Various Artists",
-          "_duration":         songItem.playbackDuration,
-          "duration":          "", // jsでいれる
+          "duration":          songItem.playbackDuration,
           "trackNo":           songItem.albumTrackNumber,
           "albumPersistentID": String(songItem.albumPersistentID)
         ]
@@ -170,6 +162,16 @@ import MediaPlayer
     return resolve(0)
   }
 
+  
+  func _playItemChanged(notify:NSNotificationCenter) {
+    if let mediaItem = player.nowPlayingItem {
+      var nowPlaying = [String: String]()
+      nowPlaying["persistentID"]      = String(mediaItem.persistentID)
+      nowPlaying["albumPersistentID"] = String(mediaItem.albumPersistentID)
+      self.sendEventWithName("onPlayItemChanged", body: nowPlaying)
+    }
+  }
+  
   func _getNowPlayingItem(persistentID: String) -> MPMediaItem {
     _nowPlayingQuery = MPMediaQuery()
     
