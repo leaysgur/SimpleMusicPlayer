@@ -27,6 +27,11 @@ class AppStore {
     return this.playingState === 'play' && this.isSeeking === false;
   }
 
+  seek(val, isSeeked) {
+    this.currentPlaybackTime = this.nowPlaying.duration * val;
+    this.isSeeking = isSeeked;
+  }
+
   updateNowPlaying({
     title,
     artist,

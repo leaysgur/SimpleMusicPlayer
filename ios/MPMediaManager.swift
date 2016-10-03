@@ -155,6 +155,13 @@ import MediaPlayer
     }
   }
   
+  @objc func changePlaybackTime(val: Double) {
+    if let mediaItem = player.nowPlayingItem {
+      let time = mediaItem.playbackDuration * val
+      player.currentPlaybackTime = time
+    }
+  }
+  
   @objc func getCurrentPlaybackTime(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     if (player.nowPlayingItem != nil) {
       return resolve(player.currentPlaybackTime)

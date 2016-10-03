@@ -8,5 +8,6 @@ RCT_EXTERN_METHOD(togglePlay: (RCTPromiseResolveBlock)resolve reject:(RCTPromise
 RCT_EXTERN_METHOD(skipPrev)
 RCT_EXTERN_METHOD(skipNext)
 RCT_EXTERN_METHOD(changeRepeat: (RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(changePlaybackTime: (double *) val)
 RCT_EXTERN_METHOD(getCurrentPlaybackTime: (RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject)
 @end

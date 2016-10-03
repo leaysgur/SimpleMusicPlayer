@@ -58,12 +58,13 @@ class Bootstrap extends React.Component {
       },
 
       changeProgress: (val) => {
-        AppStore.isSeeking = true;
-        console.log(val);
+        AppStore.seek(val, true);
+        MediaBridge.changePlaybackTime(val);
       },
 
-      changedProgress: () => {
-        AppStore.isSeeking = false;
+      changedProgress: (val) => {
+        MediaBridge.changePlaybackTime(val);
+        AppStore.seek(val, false);
       },
     };
   }
