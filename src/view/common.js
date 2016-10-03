@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   loader_text: {
-    fontSize: 30,
+    fontSize: 20,
   },
 
   separator: {

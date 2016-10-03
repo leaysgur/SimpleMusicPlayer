@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import {
+  Time,
   Separator,
   items2DataSource,
 } from '../common';
@@ -70,7 +71,8 @@ class AlbumItem extends React.Component {
               <Image style={styles.album_artwork} source={{ uri: artwork }} />
               <View style={styles.album_body}>
                 <Text>{title}</Text>
-                <Text>{artist} </Text>
+                <Text>{artist}</Text>
+                <Text>{songs.length}曲</Text>
               </View>
             </View>
           );
@@ -83,7 +85,7 @@ class AlbumItem extends React.Component {
               <View style={styles.list_row}>
                 <Text style={styles.list_row_trackNo}>{rowData.trackNo}</Text>
                 <Text style={styles.list_row_title}>{rowData.title}</Text>
-                <Text>{rowData.duration}</Text>
+                <Time seconds={rowData.duration} />
               </View>
             </TouchableOpacity>
           );

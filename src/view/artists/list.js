@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ListView,
+  StyleSheet,
   Text,
   TouchableOpacity,
 } from 'react-native';
@@ -12,6 +13,12 @@ import {
 } from '../common';
 import AlbumList from '../albums/list';
 
+
+const styles = StyleSheet.create({
+  row_sub: {
+    color: '#999',
+  }
+});
 
 class ArtistList extends React.Component {
   render() {
@@ -27,7 +34,7 @@ class ArtistList extends React.Component {
                 imgUri={rowData.artwork}
               >
                 <Text>{rowData.name}</Text>
-                <Text>{rowData.albums.length}枚のアルバム</Text>
+                <Text style={styles.row_sub}>{rowData.albums.length}枚のアルバム</Text>
               </ThumbListItem>
             </TouchableOpacity>
           );
