@@ -23,27 +23,32 @@ class Media {
 
     this.songs = songs.map((id) => {
       const song = songMap[id];
+
       song.persistentID = id;
-      song.artwork = albumMap[song.albumPersistentID].artwork;
-      song.albumTitle = albumMap[song.albumPersistentID].title;
+      song.artwork      = albumMap[song.albumPersistentID].artwork;
+      song.albumTitle   = albumMap[song.albumPersistentID].title;
+
       return song;
     });
 
     this.albums = albums.map((album) => {
       let albumDuration = 0;
-      album.title = albumMap[album.id].title;
-      album.artist = albumMap[album.id].artist;
-      album.artwork = albumMap[album.id].artwork;
+
+      album.title       = albumMap[album.id].title;
+      album.artist      = albumMap[album.id].artist;
+      album.artwork     = albumMap[album.id].artwork;
       album.releaseYear = albumMap[album.id].releaseYear;
-      album.songs = album.songs.map((id) => {
+      album.songs       = album.songs.map((id) => {
         const song = songMap[id];
+
         song.persistentID = id;
-        song.artwork = albumMap[song.albumPersistentID].artwork;
-        song.albumTitle = albumMap[song.albumPersistentID].title;
+        song.artwork      = albumMap[song.albumPersistentID].artwork;
+        song.albumTitle   = albumMap[song.albumPersistentID].title;
+
         albumDuration += song.duration;
         return song;
       });
-      album.duration = albumDuration;
+      album.duration    = albumDuration;
 
       // ついでにアーティスト用のデータをつくる
       const artist = album.artist;
