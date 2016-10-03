@@ -3,7 +3,9 @@ import {
   StyleSheet,
   NavigatorIOS,
 } from 'react-native';
+
 import ArtistList from './list';
+
 
 const styles = StyleSheet.create({
   view: {
@@ -11,17 +13,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const ArtistsView = ({
-  artists,
-  onPressRow,
-}) => {
+const ArtistsView = (props) => {
   const route = {
     component: ArtistList,
     title: 'すべてのアーティスト',
-    passProps: {
-      artists,
-      onPressRow,
-    }
+    passProps: props
   };
 
   return (
@@ -30,10 +26,6 @@ const ArtistsView = ({
       style={styles.view}
     />
   );
-};
-ArtistsView.propTypes = {
-  artists:    React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  onPressRow: React.PropTypes.func.isRequired,
 };
 
 export default ArtistsView;
