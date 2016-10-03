@@ -6,9 +6,6 @@
 あれを作りたい。
 
 ## TODO
-- [js] playbackコントロール
-  - volume
-    - Sliderコンポーネントを使ってみる
 - [ot] デザインの調整
 - [ot] タブのアイコン
 - [ot] Splashの画像
@@ -21,4 +18,3 @@
 - [sw] ボリューム二度押しで曲送り
 - [sw] アプリ終了で音を止める
 - [sw] cloudのアイテムを除外
-- [sw] なぞのWarnings `Unable to simultaneously satisfy constraints`
