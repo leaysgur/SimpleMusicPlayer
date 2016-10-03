@@ -12,10 +12,12 @@ import VolumeSlider from 'react-native-volume-slider';
 
 const styles = StyleSheet.create({
   view: {
+    flex: 1,
+    justifyContent: 'flex-end',
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 50 + 10, // TabBar + padding
+    bottom: 50, // TabBar
   },
   control: {
     flex: 1,
@@ -24,9 +26,25 @@ const styles = StyleSheet.create({
   },
   control_text: {
     padding: 5,
-    fontSize: 15,
-  }
+    fontSize: 25,
+  },
+  control_mode: {
+    padding: 5,
+    fontSize: 10,
+  },
+  slider: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 5,
+    paddingTop: 10,
+    paddingBottom: 0,
+  },
 });
+styles.slider_thumb = {
+  width: 10,
+  height: 10
+};
 
 const Controller = ({
   repeatMode,
@@ -37,16 +55,6 @@ const Controller = ({
 }) => {
   return (
     <View style={styles.view}>
-      <VolumeSlider
-        thumbSize={{
-          width: 8,
-          height: 8
-        }}
-        thumbTintColor="rgb(146,146,157)"
-        minimumTrackTintColor="rgb(146,146,157)"
-        maximumTrackTintColor="rgba(255,255,255, 0.1)"
-      />
-
       <View style={styles.control}>
         <TouchableOpacity onPress={skipPrev}>
           <Text style={styles.control_text}>前へ</Text>
@@ -57,8 +65,22 @@ const Controller = ({
         <TouchableOpacity onPress={skipNext}>
           <Text style={styles.control_text}>次へ</Text>
         </TouchableOpacity>
+      </View>
+
+      <View style={styles.slider}>
+        <Text>min</Text>
+        <VolumeSlider
+          thumbSize={styles.slider_thumb}
+          thumbTintColor="#999"
+          minimumTrackTintColor="#aaa"
+          maximumTrackTintColor="#eee"
+        />
+        <Text>max</Text>
+      </View>
+
+      <View style={styles.control}>
         <TouchableOpacity onPress={changeRepeat}>
-          <Text style={styles.control_text}>リピート:{repeatMode}</Text>
+          <Text style={styles.control_mode}>リピート:{repeatMode}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -66,12 +88,12 @@ const Controller = ({
 };
 
 Controller.propTypes = {
-  repeatMode:          React.PropTypes.string.isRequired,
-  playingState:        React.PropTypes.string.isRequired,
-  togglePlay:          React.PropTypes.func.isRequired,
-  skipPrev:            React.PropTypes.func.isRequired,
-  skipNext:            React.PropTypes.func.isRequired,
-  changeRepeat:        React.PropTypes.func.isRequired,
+  repeatMode:   React.PropTypes.string.isRequired,
+  playingState: React.PropTypes.string.isRequired,
+  togglePlay:   React.PropTypes.func.isRequired,
+  skipPrev:     React.PropTypes.func.isRequired,
+  skipNext:     React.PropTypes.func.isRequired,
+  changeRepeat: React.PropTypes.func.isRequired,
 };
 
 export default observer(Controller);
