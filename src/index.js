@@ -25,7 +25,11 @@ class Index extends React.Component {
   constructor() {
     super();
 
+    this.eventEmitter = new NativeEventEmitter(MediaBridge);
+    this.action = new NativeAction(MediaBridge, AppStore);
+
     rAF();
+
     function rAF() {
       requestAnimationFrame(rAF);
       if (AppStore.isPlaying) {
@@ -34,13 +38,10 @@ class Index extends React.Component {
         });
       }
     }
-
-    this.eventEmitter = new NativeEventEmitter(MediaBridge);
-    this.action = new NativeAction(MediaBridge, AppStore);
   }
 
   render() {
-    if (MediaModel.isFetching) {
+    if (AppStore.isReady === false) {
       return <Loading />;
     }
 
@@ -62,6 +63,7 @@ class Index extends React.Component {
         payload && AppStore.updateNowPlaying(MediaModel.getItem(payload));
       });
 
+      AppStore.isReady = true;
       this.forceUpdate();
     });
   }

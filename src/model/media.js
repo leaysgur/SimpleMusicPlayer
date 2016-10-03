@@ -1,5 +1,4 @@
 class Media {
-  isFetching = true;
   songs      = [];
   artists    = [];
   albums     = [];
@@ -14,8 +13,6 @@ class Media {
 
     this.songMap  = songMap;
     let artistMap = {};
-
-    this.isFetching = false;
 
     this.songs = songs.map((id) => {
       const song = songMap[id];

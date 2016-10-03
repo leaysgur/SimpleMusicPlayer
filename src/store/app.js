@@ -10,6 +10,8 @@ import {
 } from '../const';
 
 class AppStore {
+  @observable isReady = false;
+
   // どのタブ
   @observable selectedTab = TABS.PLAYING;
 
