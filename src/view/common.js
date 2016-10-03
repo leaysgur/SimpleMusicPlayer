@@ -37,7 +37,11 @@ const styles = StyleSheet.create({
   tli_body: {
     flex: 1,
     paddingLeft: 10
-  }
+  },
+
+  time: {
+    fontFamily: 'Hiragino Sans',
+  },
 });
 
 export const Loading = () => {
@@ -77,7 +81,7 @@ ThumbListItem.propTypes = {
 export const Time = ({
   seconds
 }) => {
-  return <Text>{_toDispDuration(seconds)}</Text>;
+  return <Text style={styles.time}>{_toDispDuration(seconds)}</Text>;
 
   function _toDispDuration(seconds) {
     seconds = Math.floor(seconds);
