@@ -35,6 +35,7 @@ const Controller = ({
   duration,
   repeatMode,
   playingState,
+  currentPlaybackTime,
   togglePlay,
   skipPrev, skipNext,
   changeRepeat,
@@ -42,7 +43,7 @@ const Controller = ({
   return (
     <View style={styles.view}>
       <View style={styles.time}>
-        <Text>{duration}</Text>
+        <Text>{currentPlaybackTime} / {duration}</Text>
       </View>
 
       <View style={styles.control}>
@@ -66,13 +67,14 @@ const Controller = ({
   );
 };
 Controller.propTypes = {
-  duration:     React.PropTypes.string.isRequired,
-  repeatMode:   React.PropTypes.string.isRequired,
-  playingState: React.PropTypes.string.isRequired,
-  togglePlay:   React.PropTypes.func.isRequired,
-  skipPrev:     React.PropTypes.func.isRequired,
-  skipNext:     React.PropTypes.func.isRequired,
-  changeRepeat: React.PropTypes.func.isRequired,
+  duration:            React.PropTypes.string.isRequired,
+  repeatMode:          React.PropTypes.string.isRequired,
+  playingState:        React.PropTypes.string.isRequired,
+  currentPlaybackTime: React.PropTypes.string.isRequired,
+  togglePlay:          React.PropTypes.func.isRequired,
+  skipPrev:            React.PropTypes.func.isRequired,
+  skipNext:            React.PropTypes.func.isRequired,
+  changeRepeat:        React.PropTypes.func.isRequired,
 };
 
 export default observer(Controller);

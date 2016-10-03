@@ -23,6 +23,7 @@ const PlayingView = ({
   nowPlaying,
   repeatMode,
   playingState,
+  currentPlaybackTime,
   controllerAction,
 }) => {
   return (
@@ -32,16 +33,18 @@ const PlayingView = ({
         duration={nowPlaying.duration}
         repeatMode={repeatMode}
         playingState={playingState}
+        currentPlaybackTime={currentPlaybackTime}
         {...controllerAction}
       />
     </View>
   );
 };
 PlayingView.propTypes = {
-  nowPlaying:       React.PropTypes.object.isRequired,
-  repeatMode:       React.PropTypes.string.isRequired,
-  playingState:     React.PropTypes.string.isRequired,
-  controllerAction: React.PropTypes.object.isRequired,
+  nowPlaying:          React.PropTypes.object.isRequired,
+  repeatMode:          React.PropTypes.string.isRequired,
+  playingState:        React.PropTypes.string.isRequired,
+  currentPlaybackTime: React.PropTypes.string.isRequired,
+  controllerAction:    React.PropTypes.object.isRequired,
 };
 
 export default observer(PlayingView);

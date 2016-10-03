@@ -16,20 +16,30 @@ class Bootstrap extends React.Component {
   constructor() {
     super();
 
+    rAF();
+    function rAF() {
+      requestAnimationFrame(rAF);
+      if (AppStore.isPlaying) {
+        MediaBridge.getCurrentPlaybackTime().then((time) => {
+          AppStore._currentPlaybackTime = time;
+        });
+      }
+    }
+
     this.action = {
       playSong: (persistentID) => {
         MediaBridge.playSong(persistentID);
-        AppStore.updatePlayingState('play');
+        AppStore.playingState = 'play';
       },
 
       playAlbumSong: (persistentID, albumPersistentID) => {
         MediaBridge.playAlbumSong(persistentID, albumPersistentID);
-        AppStore.updatePlayingState('play');
+        AppStore.playingState = 'play';
       },
 
       togglePlay: () => {
         MediaBridge.togglePlay().then((state) => {
-          AppStore.updatePlayingState(state);
+          AppStore.playingState = state;
         });
       },
 
@@ -43,7 +53,7 @@ class Bootstrap extends React.Component {
 
       changeRepeat: () => {
         MediaBridge.changeRepeat().then((mode) => {
-          AppStore.updateRepeatMode(mode);
+          AppStore.repeatMode = mode;
         });
       },
     };

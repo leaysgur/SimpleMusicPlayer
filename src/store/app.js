@@ -1,6 +1,7 @@
 import {
-  observable,
   asStructure,
+  computed,
+  observable,
 } from 'mobx';
 import {
   TABS,
@@ -17,15 +18,35 @@ class AppStore {
     albumTitle: '-',
   });
 
+  @observable _currentPlaybackTime = 0;
   @observable playingState = 'pause';
   @observable repeatMode = 'none';
 
-  updateRepeatMode(mode) {
-    this.repeatMode = mode;
+  @computed get currentPlaybackTime() {
+    return _toDispDuration(this._currentPlaybackTime);
+
+    function _toDispDuration(seconds) {
+      seconds = Math.floor(seconds);
+
+      let hours = Math.floor(seconds / 3600);
+      seconds -= hours*3600;
+
+      let minutes = Math.floor(seconds / 60);
+      seconds -= minutes*60;
+
+      if (hours) {
+        if (hours < 10) { hours = '0' + hours; }
+        return `${hours}:${minutes}:${seconds}`;
+      }
+
+      if (minutes < 10) { minutes = '0' + minutes; }
+      if (seconds < 10) { seconds = '0' + seconds; }
+      return `${minutes}:${seconds}`;
+    }
   }
 
-  updatePlayingState(state) {
-    this.playingState = state;
+  @computed get isPlaying() {
+    return this.playingState === 'play';
   }
 
   updateNowPlaying({
