@@ -33,7 +33,6 @@ import MediaPlayer
   }
   
   @objc func fetchMusic(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-    // TODO: なぜか効いてない・・？
     let noCloudPre = MPMediaPropertyPredicate(
       value: NSNumber(bool: false),
       forProperty: MPMediaItemPropertyIsCloudItem
