@@ -1,16 +1,16 @@
 # SimpleMusicPlayer
 
-![SMP](./docs/playing.png)
+<img src="./docs/playing.png" width="320" />
 
 その他キャプチャ
 
-- [アルバム一覧](./docs/album.png)
-- [アーティスト一覧](./docs/artist.png)
-- [すべての曲](./docs/songs.png)
-- [アルバム詳細](./docs/album2.png)
+- [アルバム一覧](https://raw.githubusercontent.com/leader22/SimpleMusicPlayer/master/docs/album.png)
+- [アーティスト一覧](https://raw.githubusercontent.com/leader22/SimpleMusicPlayer/master/docs/artist.png)
+- [すべての曲](https://raw.githubusercontent.com/leader22/SimpleMusicPlayer/master/docs/songs.png)
+- [アルバム詳細](https://raw.githubusercontent.com/leader22/SimpleMusicPlayer/master/docs/album2.png)
 
 ## What
-いまはなきiOS7時代のシンプルな音楽プレーヤー。
+いまはなきiOS7時代のシンプルな音楽プレーヤーです。
 
 - アルバム一覧
 - アーティスト一覧
@@ -28,7 +28,7 @@
 これ以上の機能はありません。
 
 ## なおせなかったバグ
-- なぜか再生できないアルバムがある
+- **なぜか**再生できないアルバムがある
 
 ## 見送った機能
 - [sw] ボリューム二度押しで曲送り
