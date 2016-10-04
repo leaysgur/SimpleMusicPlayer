@@ -121,7 +121,7 @@ let noCloudPre = MPMediaPropertyPredicate(
   }
   
   @objc func togglePlay(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-    if (player.playbackState == MPMusicPlaybackState.Playing) {
+    if (player.playbackState == .Playing) {
       player.pause()
       resolve("pause")
     } else {
@@ -144,15 +144,15 @@ let noCloudPre = MPMediaPropertyPredicate(
   
   @objc func changeRepeat(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     switch (player.repeatMode) {
-    case MPMusicRepeatMode.None:
+    case .None:
       player.repeatMode = MPMusicRepeatMode.One
       resolve("one")
       break
-    case MPMusicRepeatMode.One:
+    case .One:
       player.repeatMode = MPMusicRepeatMode.All
       resolve("all")
       break
-    case MPMusicRepeatMode.All:
+    case .All:
       player.repeatMode = MPMusicRepeatMode.None
       resolve("none")
       break
@@ -187,13 +187,13 @@ let noCloudPre = MPMediaPropertyPredicate(
   
   func _playbackStateChanged(notify:NSNotificationCenter) {
     switch (player.playbackState) {
-    case MPMusicPlaybackState.Interrupted:
+    case .Interrupted:
       self.sendEventWithName("onPlaybackStateChanged", body: "pause")
       break
-    case MPMusicPlaybackState.Paused:
+    case .Paused:
       self.sendEventWithName("onPlaybackStateChanged", body: "pause")
       break
-    case MPMusicPlaybackState.Stopped:
+    case .Stopped:
       self.sendEventWithName("onPlaybackStateChanged", body: "pause")
       break
     default:
