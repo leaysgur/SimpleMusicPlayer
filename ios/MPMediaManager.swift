@@ -12,9 +12,9 @@ let noCloudPre = MPMediaPropertyPredicate(
     super.init()
 
     // どうせAllなので最初から
-    player.repeatMode = MPMusicRepeatMode.All
-    // シャッフル機能はありません
-    player.shuffleMode = MPMusicShuffleMode.Off
+    player.repeatMode = .All
+    // シャッフル機能はオフから
+    player.shuffleMode = .Off
     // 初期化
     player.currentPlaybackTime = 0
     player.nowPlayingItem = nil
@@ -38,6 +38,7 @@ let noCloudPre = MPMediaPropertyPredicate(
   
   deinit {
     player.endGeneratingPlaybackNotifications()
+    player.stop()
   }
 
   override func supportedEvents() -> [String]! {
