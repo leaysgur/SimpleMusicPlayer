@@ -55,10 +55,13 @@ styles.slider_thumb = {
 
 const Controller = ({
   repeatMode,
+  shuffleMode,
   isPlaying,
   togglePlay,
-  skipPrev, skipNext,
+  skipPrev,
+  skipNext,
   changeRepeat,
+  changeShuffle,
 }) => {
   return (
     <View style={styles.view}>
@@ -92,18 +95,23 @@ const Controller = ({
         <TouchableOpacity onPress={changeRepeat}>
           <Text style={styles.control_mode}>リピート:{repeatMode}</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={changeShuffle}>
+          <Text style={styles.control_mode}>シャッフル:{shuffleMode === 'off' ? 'off' : 'on' }</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 Controller.propTypes = {
-  repeatMode:   React.PropTypes.string.isRequired,
-  isPlaying:    React.PropTypes.bool.isRequired,
-  togglePlay:   React.PropTypes.func.isRequired,
-  skipPrev:     React.PropTypes.func.isRequired,
-  skipNext:     React.PropTypes.func.isRequired,
-  changeRepeat: React.PropTypes.func.isRequired,
+  repeatMode:    React.PropTypes.string.isRequired,
+  shuffleMode:   React.PropTypes.string.isRequired,
+  isPlaying:     React.PropTypes.bool.isRequired,
+  togglePlay:    React.PropTypes.func.isRequired,
+  skipPrev:      React.PropTypes.func.isRequired,
+  skipNext:      React.PropTypes.func.isRequired,
+  changeRepeat:  React.PropTypes.func.isRequired,
+  changeShuffle: React.PropTypes.func.isRequired,
 };
 
 export default observer(Controller);

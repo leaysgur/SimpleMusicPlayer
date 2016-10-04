@@ -161,16 +161,31 @@ let noCloudPre = MPMediaPropertyPredicate(
   @objc func changeRepeat(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
     switch (player.repeatMode) {
     case .None:
-      player.repeatMode = MPMusicRepeatMode.One
+      player.repeatMode = .One
       resolve("one")
       break
     case .One:
-      player.repeatMode = MPMusicRepeatMode.All
+      player.repeatMode = .All
       resolve("all")
       break
     case .All:
-      player.repeatMode = MPMusicRepeatMode.None
+      player.repeatMode = .None
       resolve("none")
+      break
+    default:
+      resolve("default")
+    }
+  }
+  
+  @objc func changeShuffle(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
+    switch (player.shuffleMode) {
+    case .Off:
+      player.shuffleMode = .Songs
+      resolve("songs")
+      break
+    case .Songs:
+      player.shuffleMode = .Off
+      resolve("off")
       break
     default:
       resolve("default")

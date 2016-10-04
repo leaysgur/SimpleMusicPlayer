@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 const PlayingView = ({
   nowPlaying,
   repeatMode,
+  shuffleMode,
   isPlaying,
   currentPlaybackTime,
   controllerAction,
@@ -43,6 +44,7 @@ const PlayingView = ({
 
       <Controller
         repeatMode={repeatMode}
+        shuffleMode={shuffleMode}
         isPlaying={isPlaying}
         {...controllerAction}
       />
@@ -54,6 +56,7 @@ const PlayingView = ({
 PlayingView.propTypes = {
   nowPlaying:          React.PropTypes.object.isRequired,
   repeatMode:          React.PropTypes.string.isRequired,
+  shuffleMode:         React.PropTypes.string.isRequired,
   isPlaying:           React.PropTypes.bool.isRequired,
   currentPlaybackTime: React.PropTypes.number.isRequired,
   controllerAction:    React.PropTypes.object.isRequired,

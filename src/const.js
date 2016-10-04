@@ -15,3 +15,8 @@ export const REPEAT_MODE = {
   ONE:  'one',
   ALL:  'all',
 };
+
+export const SHUFFLE_MODE = {
+  OFF:   'off',
+  SONGS: 'songs',
+};

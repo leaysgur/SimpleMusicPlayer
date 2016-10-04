@@ -8,6 +8,7 @@ import {
   TABS,
   PLAYING_STATE,
   REPEAT_MODE,
+  SHUFFLE_MODE,
 } from '../const';
 
 
@@ -29,9 +30,10 @@ class AppStore {
   @observable currentPlaybackTime = 0;
 
   // 再生状態
-  @observable isSeeking = false;
+  @observable isSeeking    = false;
   @observable playingState = PLAYING_STATE.PAUSE;
-  @observable repeatMode = REPEAT_MODE.ALL;
+  @observable repeatMode   = REPEAT_MODE.ALL;
+  @observable shuffleMode  = SHUFFLE_MODE.OFF;
 
   /**
    * 曲が再生されているか

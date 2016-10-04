@@ -52,6 +52,13 @@ class NativeAction {
     });
   }
 
+  changeShuffle() {
+    const { MediaBridge, AppStore } = this;
+    MediaBridge.changeShuffle().then((mode) => {
+      AppStore.shuffleMode = mode;
+    });
+  }
+
   changeProgress(val) {
     const { MediaBridge, AppStore } = this;
     AppStore.seek(val, true);
