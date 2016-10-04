@@ -15,6 +15,10 @@ let noCloudPre = MPMediaPropertyPredicate(
     player.repeatMode = MPMusicRepeatMode.All
     // シャッフル機能はありません
     player.shuffleMode = MPMusicShuffleMode.Off
+    // 初期化
+    player.currentPlaybackTime = 0
+    player.nowPlayingItem = nil
+    player.stop()
     
     // 曲が変わったらイベントで知らせる
     NSNotificationCenter.defaultCenter().addObserver(
@@ -30,6 +34,10 @@ let noCloudPre = MPMediaPropertyPredicate(
       object: player
     )
     player.beginGeneratingPlaybackNotifications()
+  }
+  
+  deinit {
+    player.endGeneratingPlaybackNotifications()
   }
 
   override func supportedEvents() -> [String]! {
@@ -99,24 +107,31 @@ let noCloudPre = MPMediaPropertyPredicate(
   }
   
   @objc func playSong(persistentID: String) {
-    player.setQueueWithQuery(MPMediaQuery.songsQuery())
-    player.nowPlayingItem = self._getNowPlayingItem(persistentID)
-    
     player.currentPlaybackTime = 0
+    player.nowPlayingItem = nil
+
+    let query = MPMediaQuery.songsQuery()
+    query.addFilterPredicate(noCloudPre)
+    player.setQueueWithQuery(query)
+    
+    player.nowPlayingItem = self._getNowPlayingItem(persistentID)
     player.play()
   }
   
   @objc func playAlbumSong(persistentID: String, albumPersistentID: String) {
+    player.currentPlaybackTime = 0
+    player.nowPlayingItem = nil
+    
     let query = MPMediaQuery.albumsQuery()
+    query.addFilterPredicate(noCloudPre)
     query.addFilterPredicate(MPMediaPropertyPredicate(
       value: albumPersistentID,
       forProperty: MPMediaItemPropertyAlbumPersistentID,
       comparisonType: MPMediaPredicateComparison.EqualTo
     ))
     player.setQueueWithQuery(query)
-    player.nowPlayingItem = self._getNowPlayingItem(persistentID)
     
-    player.currentPlaybackTime = 0
+    player.nowPlayingItem = self._getNowPlayingItem(persistentID)
     player.play()
   }
   
