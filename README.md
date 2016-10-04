@@ -1,5 +1,7 @@
 # SimpleMusicPlayer
 
+for iOS only.
+
 <img src="./docs/playing.png" width="320" />
 
 その他キャプチャ
@@ -29,6 +31,8 @@
 
 ## なおせなかったバグ
 - **なぜか**再生できないアルバムがある
+  - どうやら`player.nowPlayingItem`がうまく反映されない？
+  - `MPMusicPlayerController`じゃなくて`AVAudioPlayer`でやればワンチャン・・？
 
 ## 見送った機能
 - [sw] ボリューム二度押しで曲送り
