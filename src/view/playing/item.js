@@ -17,6 +17,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
   },
+  sub: {
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
 });
 
 const Item = ({
@@ -29,7 +33,7 @@ const Item = ({
       style={styles.view}
     >
       <Text style={styles.title}>{title}</Text>
-      <Text>{artist} / {albumTitle}</Text>
+      <Text style={styles.sub} numberOfLines={1} ellipsizeMode="tail">{artist} / {albumTitle}</Text>
     </View>
   );
 };
