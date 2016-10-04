@@ -1,16 +1,16 @@
 import MediaPlayer
 
-@objc(MediaBridge) class MediaBridge: RCTEventEmitter {
-  let player = MPMusicPlayerController.systemMusicPlayer()
-  var _nowPlayingQuery = MPMediaQuery()
+let noCloudPre = MPMediaPropertyPredicate(
+  value: NSNumber(bool: false),
+  forProperty: MPMediaItemPropertyIsCloudItem
+)
 
-  override func supportedEvents() -> [String]! {
-    return ["onPlayItemChanged", "onPlaybackStateChanged"]
-  }
-  
+@objc(MediaBridge) class MediaBridge: RCTEventEmitter {
+  let player: MPMusicPlayerController = MPMusicPlayerController.systemMusicPlayer()
+
   override init() {
     super.init()
-    
+
     // どうせAllなので最初から
     player.repeatMode = MPMusicRepeatMode.All
     // シャッフル機能はありません
@@ -31,13 +31,12 @@ import MediaPlayer
     )
     player.beginGeneratingPlaybackNotifications()
   }
+
+  override func supportedEvents() -> [String]! {
+    return ["onPlayItemChanged", "onPlaybackStateChanged"]
+  }
   
   @objc func fetchMusic(resolve: RCTPromiseResolveBlock, reject: RCTPromiseRejectBlock) {
-    let noCloudPre = MPMediaPropertyPredicate(
-      value: NSNumber(bool: false),
-      forProperty: MPMediaItemPropertyIsCloudItem
-    )
-
     var albums = [[String: AnyObject]]()
     let albumsQuery: MPMediaQuery = MPMediaQuery.albumsQuery()
     albumsQuery.addFilterPredicate(noCloudPre)
@@ -73,8 +72,8 @@ import MediaPlayer
     var songs = [String]()
     var songMap = [String: [String: AnyObject]]()
     let songsQuery = MPMediaQuery.songsQuery()
-    
     songsQuery.addFilterPredicate(noCloudPre)
+
     if let songCollection: [MPMediaItemCollection] = songsQuery.collections {
       for song in songCollection {
         let songItem = song.representativeItem!
@@ -101,8 +100,8 @@ import MediaPlayer
   
   @objc func playSong(persistentID: String) {
     player.setQueueWithQuery(MPMediaQuery.songsQuery())
-    
     player.nowPlayingItem = self._getNowPlayingItem(persistentID)
+    
     player.currentPlaybackTime = 0
     player.play()
   }
@@ -115,8 +114,8 @@ import MediaPlayer
       comparisonType: MPMediaPredicateComparison.EqualTo
     ))
     player.setQueueWithQuery(query)
-    
     player.nowPlayingItem = self._getNowPlayingItem(persistentID)
+    
     player.currentPlaybackTime = 0
     player.play()
   }
@@ -203,15 +202,15 @@ import MediaPlayer
   }
   
   func _getNowPlayingItem(persistentID: String) -> MPMediaItem {
-    _nowPlayingQuery = MPMediaQuery()
-    
-    _nowPlayingQuery.addFilterPredicate(MPMediaPropertyPredicate(
+    let nowPlayingQuery = MPMediaQuery.songsQuery()
+    nowPlayingQuery.addFilterPredicate(noCloudPre)
+    nowPlayingQuery.addFilterPredicate(MPMediaPropertyPredicate(
       value: persistentID,
       forProperty: MPMediaItemPropertyPersistentID,
       comparisonType: MPMediaPredicateComparison.EqualTo
-      ))
-    
-    return _nowPlayingQuery.items![0]
+    ))
+
+    return nowPlayingQuery.items![0]
   }
   
 }
