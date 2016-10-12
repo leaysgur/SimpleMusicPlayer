@@ -247,8 +247,18 @@ let noCloudPre = MPMediaPropertyPredicate(
 }
 
 
+func __resizeImage(image: UIImage, size: CGSize) -> UIImage {
+  UIGraphicsBeginImageContext(size)
+  image.drawInRect(CGRectMake(0, 0, size.width, size.height))
+  let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
+  UIGraphicsEndImageContext()
+  return resizeImage!
+}
+  
 func __image2base64String(image: UIImage) -> String {
-  let data: NSData = UIImagePNGRepresentation(image)!
+  let img = __resizeImage(image, size: CGSize(width: 640, height: 640))
+  
+  let data: NSData = UIImagePNGRepresentation(img)!
   let encodeString: String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
   
   return "data:image/png;base64," + encodeString
