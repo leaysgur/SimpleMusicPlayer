@@ -13,6 +13,9 @@ import {
 
 
 class AppStore {
+  // なんかしらエラーが起きたら
+  @observable errorMsg = '';
+
   // 音楽データ取得完了
   @observable isReady = false;
   // どのタブ
@@ -34,6 +37,14 @@ class AppStore {
   @observable playingState = PLAYING_STATE.PAUSE;
   @observable repeatMode   = REPEAT_MODE.ALL;
   @observable shuffleMode  = SHUFFLE_MODE.OFF;
+
+  /**
+   * エラーになったか
+   *
+   */
+  @computed get isError() {
+    return this.errorMsg.length !== 0;
+  }
 
   /**
    * 曲が再生されているか
@@ -99,6 +110,14 @@ class AppStore {
     if (state !== PLAYING_STATE) {
       this.playingState = state;
     }
+  }
+
+  /**
+   * catchしたらコレを呼べ
+   *
+   */
+  reportError(err) {
+    this.errorMsg = `${err.name}\n${err.message}`;
   }
 }
 

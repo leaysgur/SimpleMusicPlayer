@@ -9,6 +9,18 @@ import {
 
 
 const styles = StyleSheet.create({
+  error: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#993125',
+  },
+  error_text: {
+    fontSize: 20,
+    color: '#fff',
+    textAlign: 'left',
+  },
+
   loader: {
     flex: 1,
     justifyContent: 'center',
@@ -43,6 +55,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Hiragino Sans',
   },
 });
+
+export const Error = ({ message }) => {
+  return (
+    <View style={styles.error}>
+      <Text style={styles.error_text}>{message}</Text>
+    </View>
+  );
+};
+Error.propTypes = {
+  message: React.PropTypes.string,
+};
 
 export const Loading = () => {
   return (

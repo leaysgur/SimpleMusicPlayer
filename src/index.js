@@ -4,7 +4,10 @@ import {
   NativeModules,
 } from 'react-native';
 
-import { Loading } from './view/common';
+import {
+  Error,
+  Loading,
+} from './view/common';
 import App from './view/app';
 
 import AppStore from './store/app';
@@ -30,18 +33,25 @@ class Index extends React.Component {
     this.action = new NativeAction(MediaBridge, AppStore);
 
     rAF();
-
     function rAF() {
       requestAnimationFrame(rAF);
       if (AppStore.canSyncPlaybackTime) {
         MediaBridge.getCurrentPlaybackTime().then((time) => {
           AppStore.currentPlaybackTime = time;
+        })
+        .catch((e) => {
+          AppStore.reportError(e);
+          this.forceUpdate();
         });
       }
     }
   }
 
   render() {
+    if (AppStore.isError) {
+      return <Error message={AppStore.errorMsg} />;
+    }
+
     if (AppStore.isReady === false) {
       return <Loading />;
     }
@@ -68,6 +78,10 @@ class Index extends React.Component {
       }));
 
       AppStore.isReady = true;
+      this.forceUpdate();
+    })
+    .catch((e) => {
+      AppStore.reportError(e);
       this.forceUpdate();
     });
   }
